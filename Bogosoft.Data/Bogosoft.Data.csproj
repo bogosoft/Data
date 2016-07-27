@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="AwaitableMapperExtensions.cs" />
     <Compile Include="IAwaitableMapper.cs" />
+    <Compile Include="ILocate.cs" />
     <Compile Include="IMap.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
