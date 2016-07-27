@@ -46,6 +46,7 @@
     <Compile Include="IAwaitableMapper.cs" />
     <Compile Include="ILocate.cs" />
     <Compile Include="IMap.cs" />
+    <Compile Include="LocatorExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
