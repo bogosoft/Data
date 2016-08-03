@@ -42,8 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AwaitableMapperExtensions.cs" />
-    <Compile Include="IAwaitableMapper.cs" />
     <Compile Include="ILocate.cs" />
     <Compile Include="IMap.cs" />
     <Compile Include="LocatorExtensions.cs" />
