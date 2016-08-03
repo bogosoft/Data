@@ -42,6 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DeleteExtensions.cs" />
+    <Compile Include="IDelete.cs" />
     <Compile Include="ILocate.cs" />
     <Compile Include="IMap.cs" />
     <Compile Include="ISave.cs" />
