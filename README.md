@@ -1,2 +1,2 @@
 # Data
-Generally-applicable contracts for working with data
+Generally-applicable contracts for working with data.
