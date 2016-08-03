@@ -42,12 +42,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConjunctiveConstraint.cs" />
+    <Compile Include="ConstrainExtensions.cs" />
     <Compile Include="DeleteExtensions.cs" />
+    <Compile Include="DisjunctiveConstraint.cs" />
+    <Compile Include="ExpressionConstraint.cs" />
+    <Compile Include="IConstrain.cs" />
     <Compile Include="IDelete.cs" />
     <Compile Include="ILocate.cs" />
     <Compile Include="IMap.cs" />
     <Compile Include="ISave.cs" />
     <Compile Include="LocatorExtensions.cs" />
+    <Compile Include="NegatedConstraint.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SaveExtensions.cs" />
   </ItemGroup>
