@@ -43,10 +43,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConjunctiveConstraint.cs" />
-    <Compile Include="ConstrainExtensions.cs" />
+    <Compile Include="ConstraintExtensions.cs" />
+    <Compile Include="DataColumnCollectionExtensions.cs" />
     <Compile Include="DeleteExtensions.cs" />
     <Compile Include="DisjunctiveConstraint.cs" />
     <Compile Include="ExpressionConstraint.cs" />
+    <Compile Include="ExpressionMapper.cs" />
     <Compile Include="IConstrain.cs" />
     <Compile Include="IDelete.cs" />
     <Compile Include="ILocate.cs" />
