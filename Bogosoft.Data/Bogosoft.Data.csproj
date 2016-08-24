@@ -44,7 +44,6 @@
   <ItemGroup>
     <Compile Include="ConjunctiveConstraint.cs" />
     <Compile Include="ConstraintExtensions.cs" />
-    <Compile Include="DataColumnCollectionExtensions.cs" />
     <Compile Include="DeleteExtensions.cs" />
     <Compile Include="DisjunctiveConstraint.cs" />
     <Compile Include="ExpressionConstraint.cs" />
