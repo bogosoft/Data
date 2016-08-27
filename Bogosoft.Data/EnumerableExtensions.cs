@@ -12,7 +12,7 @@ namespace Bogosoft.Data
         /// <typeparam name="T">The type of the values in the sequence.</typeparam>
         /// <param name="items">The current <see cref="IEnumerable{T}"/> object.</param>
         /// <param name="qualifier">A filter to constrain the sequence by.</param>
-        /// <returns>A filtered sequence.</returns>
+        /// <returns>A filtered sequence.   </returns>
         public static IEnumerable<T> Where<T>(
             this IEnumerable<T> items,
             IConstrain<T> qualifier

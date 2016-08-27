@@ -46,6 +46,7 @@
     <Compile Include="ConstraintExtensions.cs" />
     <Compile Include="DeleteExtensions.cs" />
     <Compile Include="DisjunctiveConstraint.cs" />
+    <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="ExpressionConstraint.cs" />
     <Compile Include="ExpressionMapper.cs" />
     <Compile Include="IConstrain.cs" />
