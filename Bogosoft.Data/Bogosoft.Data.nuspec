@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
 	<metadata>
 		<authors>Clayton Roth</authors>
-		<description>Generally-applicable contracts for working with data.</description>
+		<description>Contracts for working with relational data stores.</description>
 		<id>Bogosoft.Data</id>
 		<requireLicenseAcceptance>false</requireLicenseAcceptance>
 		<version>1.0.0</version>

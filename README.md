@@ -1,2 +1,2 @@
 # Data
-Generally-applicable contracts for working with data.
+Contracts for working with relational data stores.
