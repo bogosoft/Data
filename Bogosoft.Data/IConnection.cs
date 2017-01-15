@@ -26,10 +26,10 @@ namespace Bogosoft.Data
         ConnectionState State { get; }
 
         /// <summary>
-        /// Get or set the time, in seconds, to wait while establishing a connection
+        /// Get the time, in seconds, to wait while establishing a connection
         /// before terminating the attempt.
         /// </summary>
-        int Timeout { get; set; }
+        int Timeout { get; }
 
         /// <summary>
         /// Close the current connection to a data source.
