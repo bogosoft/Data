@@ -23,12 +23,12 @@
         /// <summary>
         /// Get or set the maximum number of digits used to represent the <see cref="Value"/>.
         /// </summary>
-        int Precision { get; set; }
+        byte Precision { get; set; }
 
         /// <summary>
         /// Get or set the number of decimal places to which the <see cref="Value"/> is resolved.
         /// </summary>
-        int Scale { get; set; }
+        byte Scale { get; set; }
 
         /// <summary>
         /// Get or set the maximum size, in bytes, that the value of the current
