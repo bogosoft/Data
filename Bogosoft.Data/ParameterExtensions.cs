@@ -19,7 +19,7 @@ namespace Bogosoft.Data
         /// </returns>
         public static bool CanStreamData(this IParameter parameter)
         {
-            return 0 != (parameter.StreamingCapaiblities & StreamingCapability.Raw);
+            return 0 != (parameter.StreamingCapabilities & StreamingCapability.Raw);
         }
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace Bogosoft.Data
         /// </returns>
         public static bool CanStreamText(this IParameter parameter)
         {
-            return 0 != (parameter.StreamingCapaiblities & StreamingCapability.Text);
+            return 0 != (parameter.StreamingCapabilities & StreamingCapability.Text);
         }
 
         /// <summary>
@@ -43,7 +43,7 @@ namespace Bogosoft.Data
         /// </returns>
         public static bool CanStreamXml(this IParameter parameter)
         {
-            return 0 != (parameter.StreamingCapaiblities & StreamingCapability.Xml);
+            return 0 != (parameter.StreamingCapabilities & StreamingCapability.Xml);
         }
 
         /// <summary>

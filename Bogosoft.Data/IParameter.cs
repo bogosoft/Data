@@ -34,7 +34,7 @@
         /// <summary>
         /// Get a value corresponding to the capability of the current command to stream data to the data source.
         /// </summary>
-        StreamingCapability StreamingCapaiblities { get; }
+        StreamingCapability StreamingCapabilities { get; }
 
         /// <summary>
         /// Get or set the value of the current parameter.
