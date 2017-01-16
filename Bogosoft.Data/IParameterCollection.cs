@@ -51,8 +51,12 @@ namespace Bogosoft.Data
         /// <param name="name">
         /// A value corresponding to the name to be given to the newly created parameter.
         /// </param>
+        /// <param name="size">
+        /// A value corresponding to the maximum size, in bytes, that the value of the current
+        /// parameter can be at the data source.
+        /// </param>
         /// <returns>A parameter.</returns>
-        IParameter AddByteArrayParameter(string name);
+        IParameter AddByteArrayParameter(string name, int size);
 
         /// <summary>
         /// Create and return a parameter capable of storing a <see cref="byte"/> as its value.
@@ -168,8 +172,11 @@ namespace Bogosoft.Data
         /// <param name="name">
         /// A value corresponding to the name to be given to the newly created parameter.
         /// </param>
+        /// <param name="size">
+        /// A value corresponding to the maximum length that the value can have at the data source.
+        /// </param>
         /// <returns>A parameter.</returns>
-        IParameter AddStringParameter(string name);
+        IParameter AddStringParameter(string name, int size);
 
         /// <summary>
         /// Create and return a parameter capable of storing a <see cref="TimeSpan"/> as its value.
@@ -178,7 +185,7 @@ namespace Bogosoft.Data
         /// A value corresponding to the name to be given to the newly created parameter.
         /// </param>
         /// <returns>A parameter.</returns>
-        IParameter AddTimeParameter(string name);
+        IParameter AddTimeSpanParameter(string name);
 
         /// <summary>
         /// Have the current collection create a parameter according to its own internal algorithm
