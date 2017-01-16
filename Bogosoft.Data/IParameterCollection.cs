@@ -191,6 +191,15 @@ namespace Bogosoft.Data
         IParameter AddStringParameter(string name, int size);
 
         /// <summary>
+        /// Create and return a parameter capable of storing a very large <see cref="string"/>.
+        /// </summary>
+        /// <param name="name">
+        /// A value corresponding to the name to be given to the newly created parameter.
+        /// </param>
+        /// <returns>A parameter.</returns>
+        IParameter AddTextParameter(string name);
+
+        /// <summary>
         /// Create and return a parameter capable of storing a <see cref="TimeSpan"/> as its value.
         /// </summary>
         /// <param name="name">

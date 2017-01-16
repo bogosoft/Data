@@ -661,5 +661,29 @@ namespace Bogosoft.Data
 
             return parameter;
         }
+
+        /// <summary>
+        /// Create and return a parameter capable of storing a very large <see cref="string"/>.
+        /// </summary>
+        /// <param name="parameters">
+        /// The current <see cref="IParameterCollection"/> implementation.
+        /// </param>
+        /// <param name="name">
+        /// A value corresponding to the name to be given to the newly created parameter.
+        /// </param>
+        /// <param name="text">The initial value of the newly created parameter.</param>
+        /// <returns>A parameter.</returns>
+        public static IParameter AddTextParameter(
+            this IParameterCollection parameters,
+            string name,
+            string text
+            )
+        {
+            var parameter = parameters.AddTextParameter(name);
+
+            parameter.Value = text;
+
+            return parameter;
+        }
     }
 }
