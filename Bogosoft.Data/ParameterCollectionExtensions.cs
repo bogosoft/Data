@@ -12,60 +12,6 @@ namespace Bogosoft.Data
     public static class ParameterCollectionExtensions
     {
         /// <summary>
-        /// Have the current collection create a new parameter, add it to the collection,
-        /// and return it.
-        /// </summary>
-        /// <param name="collection">The current <see cref="IParameterCollection"/> implementation.</param>
-        /// <param name="name">The name to be assigned to the newly created parameter.</param>
-        /// <param name="flags">
-        /// A value corresponding to one or more flags to set on the newly created parameter.
-        /// </param>
-        /// <returns>The newly created parameter.</returns>
-        public static IParameter Add(
-            this IParameterCollection collection,
-            string name,
-            ParameterFlag flags = ParameterFlag.None
-            )
-        {
-            var parameter = collection.Create();
-
-            parameter.Flags = flags;
-
-            parameter.Name = name;
-
-            return collection.Add(parameter);
-        }
-
-        /// <summary>
-        /// Have the current collection create a new parameter, add it to the collection,
-        /// and return it.
-        /// </summary>
-        /// <param name="collection">The current <see cref="IParameterCollection"/> implementation.</param>
-        /// <param name="name">The name to be assigned to the newly created parameter.</param>
-        /// <param name="size">
-        /// A value corresponding to the maximum length, in bytes, that the value can have at the data source.
-        /// </param>
-        /// <param name="flags">
-        /// A value corresponding to one or more flags to set on the newly created parameter.
-        /// </param>
-        /// <returns>The newly created parameter.</returns>
-        public static IParameter Add(
-            this IParameterCollection collection,
-            string name,
-            int size,
-            ParameterFlag flags = ParameterFlag.None
-            )
-        {
-            var parameter = collection.Create();
-
-            parameter.Flags = flags;
-
-            parameter.Name = name;
-
-            return collection.Add(parameter);
-        }
-
-        /// <summary>
         /// Add a collection of parameters to the current parameter collection.
         /// </summary>
         /// <param name="collection">The current <see cref="IParameterCollection"/> implementation.</param>

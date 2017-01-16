@@ -37,6 +37,150 @@ namespace Bogosoft.Data
         IParameter Add(IParameter parameter);
 
         /// <summary>
+        /// Create and return a parameter capable of storing a <see cref="bool"/> as its value.
+        /// </summary>
+        /// <param name="name">
+        /// A value corresponding to the name to be given to the newly created parameter.
+        /// </param>
+        /// <returns>A parameter.</returns>
+        IParameter AddBooleanParameter(string name);
+
+        /// <summary>
+        /// Create and return a parameter capable of storing an array of <see cref="byte"/> as its value.
+        /// </summary>
+        /// <param name="name">
+        /// A value corresponding to the name to be given to the newly created parameter.
+        /// </param>
+        /// <returns>A parameter.</returns>
+        IParameter AddByteArrayParameter(string name);
+
+        /// <summary>
+        /// Create and return a parameter capable of storing a <see cref="byte"/> as its value.
+        /// </summary>
+        /// <param name="name">
+        /// A value corresponding to the name to be given to the newly created parameter.
+        /// </param>
+        /// <returns>A parameter.</returns>
+        IParameter AddByteParameter(string name);
+
+        /// <summary>
+        /// Create and return a parameter capable of storing a <see cref="System.Data.DataTable"/> as its value.
+        /// </summary>
+        /// <param name="name">
+        /// A value corresponding to the name to be given to the newly created parameter.
+        /// </param>
+        /// <returns>A parameter.</returns>
+        IParameter AddDataTableParameter(string name);
+
+        /// <summary>
+        /// Create and return a parameter capable of storing a <see cref="DateTimeOffset"/> as its value.
+        /// </summary>
+        /// <param name="name">
+        /// A value corresponding to the name to be given to the newly created parameter.
+        /// </param>
+        /// <returns>A parameter.</returns>
+        IParameter AddDateTimeOffsetParameter(string name);
+
+        /// <summary>
+        /// Create and return a parameter capable of storing a <see cref="DateTime"/> as its value.
+        /// </summary>
+        /// <param name="name">
+        /// A value corresponding to the name to be given to the newly created parameter.
+        /// </param>
+        /// <returns>A parameter.</returns>
+        IParameter AddDateTimeParameter(string name);
+
+        /// <summary>
+        /// Create and return a parameter capable of storing a <see cref="decimal"/> as its value.
+        /// </summary>
+        /// <param name="name">
+        /// A value corresponding to the name to be given to the newly created parameter.
+        /// </param>
+        /// <returns>A parameter.</returns>
+        IParameter AddDecimalParameter(string name);
+
+        /// <summary>
+        /// Create and return a parameter capable of storing a <see cref="double"/> as its value.
+        /// </summary>
+        /// <param name="name">
+        /// A value corresponding to the name to be given to the newly created parameter.
+        /// </param>
+        /// <returns>A parameter.</returns>
+        IParameter AddDoubleParameter(string name);
+
+        /// <summary>
+        /// Create and return a parameter capable of storing a <see cref="float"/> as its value.
+        /// </summary>
+        /// <param name="name">
+        /// A value corresponding to the name to be given to the newly created parameter.
+        /// </param>
+        /// <returns>A parameter.</returns>
+        IParameter AddFloatParameter(string name);
+
+        /// <summary>
+        /// Create and return a parameter capable of storing a <see cref="Guid"/> as its value.
+        /// </summary>
+        /// <param name="name">
+        /// A value corresponding to the name to be given to the newly created parameter.
+        /// </param>
+        /// <returns>A parameter.</returns>
+        IParameter AddGuidParameter(string name);
+
+        /// <summary>
+        /// Create and return a parameter capable of storing a <see cref="short"/> as its value.
+        /// </summary>
+        /// <param name="name">
+        /// A value corresponding to the name to be given to the newly created parameter.
+        /// </param>
+        /// <returns>A parameter.</returns>
+        IParameter AddInt16Parameter(string name);
+
+        /// <summary>
+        /// Create and return a parameter capable of storing a <see cref="int"/> as its value.
+        /// </summary>
+        /// <param name="name">
+        /// A value corresponding to the name to be given to the newly created parameter.
+        /// </param>
+        /// <returns>A parameter.</returns>
+        IParameter AddInt32Parameter(string name);
+
+        /// <summary>
+        /// Create and return a parameter capable of storing a <see cref="long"/> as its value.
+        /// </summary>
+        /// <param name="name">
+        /// A value corresponding to the name to be given to the newly created parameter.
+        /// </param>
+        /// <returns>A parameter.</returns>
+        IParameter AddInt64Parameter(string name);
+
+        /// <summary>
+        /// Create and return a parameter capable of storing an <see cref="object"/> as its value.
+        /// </summary>
+        /// <param name="name">
+        /// A value corresponding to the name to be given to the newly created parameter.
+        /// </param>
+        /// <returns>A parameter.</returns>
+        IParameter AddObjectParameter(string name);
+
+        /// <summary>
+        /// Create and return a parameter capable of storing a <see cref="string"/> as its value.
+        /// </summary>
+        /// <param name="name">
+        /// A value corresponding to the name to be given to the newly created parameter.
+        /// </param>
+        /// <returns>A parameter.</returns>
+        IParameter AddStringParameter(string name);
+
+        /// <summary>
+        /// Create and return a parameter capable of storing a <see cref="TimeSpan"/> as its value.
+        /// </summary>
+        /// <param name="name">
+        /// A value corresponding to the name to be given to the newly created parameter.
+        /// </param>
+        /// <returns>A parameter.</returns>
+        IParameter AddTimeParameter(string name);
+
+        /// <summary>
         /// Have the current collection create a parameter according to its own internal algorithm
         /// and return it. Implementations SHOULD NOT automatically add the newly created
         /// parameter to the current collection.

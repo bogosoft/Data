@@ -11,11 +11,6 @@
         ParameterDirection Direction { get; set; }
 
         /// <summary>
-        /// Get or set one or more flags on the current parameter.
-        /// </summary>
-        ParameterFlag Flags { get; set; }
-
-        /// <summary>
         /// Get or set the name of the current parameter.
         /// </summary>
         string Name { get; set; }
