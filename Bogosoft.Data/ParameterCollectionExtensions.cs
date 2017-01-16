@@ -518,6 +518,31 @@ namespace Bogosoft.Data
         }
 
         /// <summary>
+        /// Create and return a parameter capable of transmitting a very large binary object (BLOB) such as
+        /// a file.
+        /// </summary>
+        /// <param name="parameters">
+        /// The current <see cref="IParameterCollection"/> implementation.
+        /// </param>
+        /// <param name="name">
+        /// A value corresponding to the name to be given to the newly created parameter.
+        /// </param>
+        /// <param name="data">The initial value of the newly created parameter.</param>
+        /// <returns>A parameter.</returns>
+        public static IParameter AddBlobParameter(
+            this IParameterCollection parameters,
+            string name,
+            byte[] data
+            )
+        {
+            var parameter = parameters.AddBlobParameter(name);
+
+            parameter.Value = data;
+
+            return parameter;
+        }
+
+        /// <summary>
         /// Create and return a parameter capable of storing a <see cref="decimal"/> as its value.
         /// </summary>
         /// <param name="parameters">
