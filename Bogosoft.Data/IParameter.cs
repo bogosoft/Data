@@ -32,6 +32,11 @@
         int Size { get; set; }
 
         /// <summary>
+        /// Get a value corresponding to the capability of the current command to stream data to the data source.
+        /// </summary>
+        StreamingCapability StreamingCapaiblities { get; }
+
+        /// <summary>
         /// Get or set the value of the current parameter.
         /// </summary>
         object Value { get; set; }

@@ -59,8 +59,10 @@
     <Compile Include="IParameter.cs" />
     <Compile Include="IParameterCollection.cs" />
     <Compile Include="ParameterDirection.cs" />
+    <Compile Include="ParameterExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RowExtensions.cs" />
+    <Compile Include="StreamingCapability.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Bogosoft.Data.nuspec" />
