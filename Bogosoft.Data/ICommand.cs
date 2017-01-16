@@ -39,7 +39,7 @@ namespace Bogosoft.Data
         /// <returns>
         /// A value corresponding to the number of records affected by the execution of the command.
         /// </returns>
-        Task<ulong> ExecuteNonQueryAsync(CancellationToken token);
+        Task<long> ExecuteNonQueryAsync(CancellationToken token);
 
         /// <summary>
         /// Execute the current command and return a traversable set of results.

@@ -19,7 +19,7 @@ namespace Bogosoft.Data
         /// <returns>
         /// A value corresponding to the number of records affected by the execution of the command.
         /// </returns>
-        public static async Task<ulong> ExecuteNonQueryAsync(this ICommand command)
+        public static async Task<long> ExecuteNonQueryAsync(this ICommand command)
         {
             return await command.ExecuteNonQueryAsync(CancellationToken.None).ConfigureAwait(false);
         }
