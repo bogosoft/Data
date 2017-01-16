@@ -432,6 +432,34 @@ namespace Bogosoft.Data
         }
 
         /// <summary>
+        /// Create and return a parameter capable of storing a fixed length <see cref="string"/> as its value.
+        /// </summary>
+        /// <param name="parameters">
+        /// The current <see cref="IParameterCollection"/> implementation.
+        /// </param>
+        /// <param name="name">
+        /// A value corresponding to the name to be given to the newly created parameter.
+        /// </param>
+        /// <param name="value">The initial value of the newly created parameter.</param>
+        /// <param name="size">
+        /// A value corresponding to the maximum length that the value can have at the data source.
+        /// </param>
+        /// <returns></returns>
+        public static IParameter AddFixedLengthStringParameter(
+            this IParameterCollection parameters,
+            string name,
+            string value,
+            int size
+            )
+        {
+            var parameter = parameters.AddFixedLengthStringParameter(name, size);
+
+            parameter.Value = value;
+
+            return parameter;
+        }
+
+        /// <summary>
         /// Create and return a parameter capable of storing a <see cref="float"/> as its value.
         /// </summary>
         /// <param name="parameters">

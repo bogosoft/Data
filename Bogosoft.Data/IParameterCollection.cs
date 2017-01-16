@@ -113,6 +113,18 @@ namespace Bogosoft.Data
         IParameter AddDoubleParameter(string name);
 
         /// <summary>
+        /// Create and return a parameter capable of storing a fixed length <see cref="string"/> as its value.
+        /// </summary>
+        /// <param name="name">
+        /// A value corresponding to the name to be given to the newly created parameter.
+        /// </param>
+        /// <param name="size">
+        /// A value corresponding to the maximum length that the value can have at the data source.
+        /// </param>
+        /// <returns>A parameter.</returns>
+        IParameter AddFixedLengthStringParameter(string name, int size);
+
+        /// <summary>
         /// Create and return a parameter capable of storing a <see cref="float"/> as its value.
         /// </summary>
         /// <param name="name">
