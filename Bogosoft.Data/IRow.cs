@@ -16,22 +16,50 @@ namespace Bogosoft.Data
         int FieldCount { get; }
 
         /// <summary>
-        /// Get the value of a given column (field) as a sequence of bytes.
+        /// Reads a sequence of bytes from the specified column into an array.
         /// </summary>
         /// <param name="ordinal">
-        /// A value corresponding to the zero-based numeric index of the desired column (field).
+        /// The zero-based numeric index of the desired column.
         /// </param>
-        /// <returns>A sequence of bytes.</returns>
-        ITraversable<byte> GetBytes(int ordinal);
+        /// <param name="dataIndex">
+        /// A value corresponding to the start position within the stream to copy from.
+        /// </param>
+        /// <param name="buffer">
+        /// An array into which the read bytes will be copied.
+        /// </param>
+        /// <param name="bufferIndex">
+        /// A value corresponding to the start position within the buffer to copy to.
+        /// </param>
+        /// <param name="length">
+        /// A value corresponding to the maximum number of bytes to copy.
+        /// </param>
+        /// <returns>
+        /// A value corresponding to the actual number of bytes copied.
+        /// </returns>
+        long GetBytes(int ordinal, long dataIndex, byte[] buffer, int bufferIndex, int length);
 
         /// <summary>
-        /// Get the value of a given column (field) as a sequence of chars.
+        /// Reads a sequence of chars from the specified column into an array.
         /// </summary>
         /// <param name="ordinal">
-        /// A value corresponding to the zero-based numeric index of the desired column (field).
+        /// The zero-based numeric index of the desired column.
         /// </param>
-        /// <returns>A sequence of chars.</returns>
-        ITraversable<char> GetChars(int ordinal);
+        /// <param name="dataIndex">
+        /// A value corresponding to the start position within the stream to copy from.
+        /// </param>
+        /// <param name="buffer">
+        /// An array into which the read bytes will be copied.
+        /// </param>
+        /// <param name="bufferIndex">
+        /// A value corresponding to the start position within the buffer to copy to.
+        /// </param>
+        /// <param name="length">
+        /// A value corresponding to the maximum number of chars to copy.
+        /// </param>
+        /// <returns>
+        /// A value corresponding to the actual number of chars copied.
+        /// </returns>
+        long GetChars(int ordinal, long dataIndex, char[] buffer, int bufferIndex, int length);
 
         /// <summary>
         /// Get the value of a given column or field as an object of the specified type.

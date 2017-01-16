@@ -11,29 +11,71 @@ namespace Bogosoft.Data
     public static class RowExtensions
     {
         /// <summary>
-        /// Get the value of a given column (field) as a sequence of bytes.
+        /// Reads a sequence of bytes from the specified column into an array.
         /// </summary>
-        /// <param name="row">The current <see cref="IRow"/> implementation.</param>
+        /// <param name="row">The current <see cref="IRow"/> implementation</param>.
         /// <param name="name">
-        /// A value corresponding to the name of the desired column (field).
+        /// The name of the desired column.
         /// </param>
-        /// <returns>A sequence of bytes.</returns>
-        public static ITraversable<byte> GetBytes(this IRow row, string name)
+        /// <param name="dataIndex">
+        /// A value corresponding to the start position within the stream to copy from.
+        /// </param>
+        /// <param name="buffer">
+        /// An array into which the read bytes will be copied.
+        /// </param>
+        /// <param name="bufferIndex">
+        /// A value corresponding to the start position within the buffer to copy to.
+        /// </param>
+        /// <param name="length">
+        /// A value corresponding to the maximum number of bytes to copy.
+        /// </param>
+        /// <returns>
+        /// A value corresponding to the actual number of bytes copied.
+        /// </returns>
+        public static long GetBytes(
+            this IRow row,
+            string name,
+            long dataIndex,
+            byte[] buffer,
+            int bufferIndex,
+            int length
+            )
         {
-            return row.GetBytes(row.GetOrdinal(name));
+            return row.GetBytes(row.GetOrdinal(name), dataIndex, buffer, bufferIndex, length);
         }
 
         /// <summary>
-        /// Get the value of a given column (field) as a sequence of chars.
+        /// Reads a sequence of chars from the specified column into an array.
         /// </summary>
-        /// <param name="row">The current <see cref="IRow"/> implementation.</param>
+        /// <param name="row">The current <see cref="IRow"/> implementation</param>.
         /// <param name="name">
-        /// A value corresponding to the name of the desired column (field).
+        /// The name of the desired column.
         /// </param>
-        /// <returns>A sequence of chars.</returns>
-        public static ITraversable<char> GetChars(this IRow row, string name)
+        /// <param name="dataIndex">
+        /// A value corresponding to the start position within the stream to copy from.
+        /// </param>
+        /// <param name="buffer">
+        /// An array into which the read bytes will be copied.
+        /// </param>
+        /// <param name="bufferIndex">
+        /// A value corresponding to the start position within the buffer to copy to.
+        /// </param>
+        /// <param name="length">
+        /// A value corresponding to the maximum number of chars to copy.
+        /// </param>
+        /// <returns>
+        /// A value corresponding to the actual number of chars copied.
+        /// </returns>
+        public static long GetChars(
+            this IRow row,
+            string name,
+            long dataIndex,
+            char[] buffer,
+            int bufferIndex,
+            int length
+            )
         {
-            return row.GetChars(row.GetOrdinal(name));
+            return row.GetChars(row.GetOrdinal(name), dataIndex, buffer, bufferIndex, length);
         }
 
         /// <summary>
