@@ -27,7 +27,7 @@ namespace Bogosoft.Data
         string Text { get; set; }
 
         /// <summary>
-        /// Get or set the context within which the <see cref="Text"/> value is interpreted.
+        /// Get or set the context within which the <see cref="Text"/> value is to be interpreted.
         /// </summary>
         CommandType Type { get; set; }
 
