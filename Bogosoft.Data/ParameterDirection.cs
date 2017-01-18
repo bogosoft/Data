@@ -1,7 +1,7 @@
 ﻿namespace Bogosoft.Data
 {
     /// <summary>
-    /// Indicates that direction of data flow between this parameter and a data source. These values are
+    /// Indicates the direction of data flow between this parameter and a data source. These values are
     /// a direct mapping to those in <see cref="System.Data.ParameterDirection"/>.
     /// </summary>
     public enum ParameterDirection
