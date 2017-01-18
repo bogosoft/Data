@@ -48,7 +48,7 @@ namespace Bogosoft.Data
         /// A value corresponding to the intended behavior of a data source when executing the current command.
         /// </param>
         /// <returns>A sequence of zero or more results.</returns>
-        ITraversable<IResult> ToResultSet(CommandBehavior behavior = CommandBehavior.Default);
+        IReader GetReader(CommandBehavior behavior = CommandBehavior.Default);
 
         /// <summary>
         /// Execute the current command and return the value of the first column of the first row

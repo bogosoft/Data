@@ -21,7 +21,7 @@ namespace Bogosoft.Data
         }
 
         /// <summary>
-        /// Bulk write the contents of an instance of <see cref="IResult"/> to the data source.
+        /// Bulk write the contents of a data reader to the data source.
         /// </summary>
         /// <param name="writer">The current <see cref="IBulkWrite"/> implementation.</param>
         /// <param name="reader">A data reader.</param>

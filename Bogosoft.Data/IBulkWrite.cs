@@ -39,7 +39,7 @@ namespace Bogosoft.Data
         Task WriteAsync(DataTable table, CancellationToken token);
 
         /// <summary>
-        /// Bulk write the contents of an instance of <see cref="IResult"/> to the data source.
+        /// Bulk write the contents of a data reader to the data source.
         /// </summary>
         /// <param name="reader">A data reader.</param>
         /// <param name="token">A <see cref="CancellationToken"/> object.</param>

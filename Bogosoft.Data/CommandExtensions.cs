@@ -1,5 +1,4 @@
-﻿using Bogosoft.Collections.Async;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 
 namespace Bogosoft.Data
@@ -22,22 +21,6 @@ namespace Bogosoft.Data
         public static async Task<long> ExecuteNonQueryAsync(this ICommand command)
         {
             return await command.ExecuteNonQueryAsync(CancellationToken.None).ConfigureAwait(false);
-        }
-
-        /// <summary>
-        /// Execute the current command and return a traversable set of rows from the first result.
-        /// </summary>
-        /// <param name="command">The current <see cref="ICommand"/> implementation.</param>
-        /// <param name="behavior">
-        /// A value corresponding to the intended behavior of a data source when executing the current command.
-        /// </param>
-        /// <returns>A sequence of zero or more rows.</returns>
-        public static ITraversable<IRow> ToResult(
-            this ICommand command,
-            CommandBehavior behavior = CommandBehavior.Default
-            )
-        {
-            return new FirstResult(command.ToResultSet(behavior));
         }
 
         /// <summary>
