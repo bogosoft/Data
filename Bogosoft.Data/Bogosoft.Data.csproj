@@ -32,9 +32,6 @@
     <DocumentationFile>bin\Release\Bogosoft.Data.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Bogosoft.Collections.Async, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Bogosoft.Collections.Async.1.0.0.9\lib\net452\Bogosoft.Collections.Async.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
