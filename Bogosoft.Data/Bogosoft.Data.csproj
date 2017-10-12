@@ -45,29 +45,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BulkWriteExtensions.cs" />
-    <Compile Include="CommandBehavior.cs" />
-    <Compile Include="CommandExtensions.cs" />
-    <Compile Include="IBulkWrite.cs" />
-    <Compile Include="IReader.cs" />
-    <Compile Include="IRow.cs" />
-    <Compile Include="ParameterCollectionExtensions.cs" />
-    <Compile Include="CommandType.cs" />
-    <Compile Include="ConnectionExtensions.cs" />
-    <Compile Include="ConnectionState.cs" />
-    <Compile Include="ICommand.cs" />
-    <Compile Include="IConnection.cs" />
-    <Compile Include="IParameter.cs" />
-    <Compile Include="IParameterCollection.cs" />
-    <Compile Include="ParameterDirection.cs" />
-    <Compile Include="ParameterExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RowExtensions.cs" />
-    <Compile Include="StreamingCapability.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Bogosoft.Data.nuspec" />
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
