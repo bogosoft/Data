@@ -3,17 +3,20 @@ using System.IO;
 
 namespace Bogosoft.Data.ConsoleTest
 {
+    [Obsolete("This will be removed in the future when comprehensive unit tests are available.")]
     class Program
     {
         static void Main(string[] args)
         {
             using (var reader = new StreamReader("Heroes.csv"))
             {
-                var heroes = new CsvToEnumerableAdapter<Hero>(Map, reader);
+                var buffer = new string[3];
 
-                foreach (var hero in heroes)
+                var csv = new StandardFlatFileReader(reader);
+
+                while (csv.NextLine(buffer))
                 {
-                    Console.WriteLine(hero);
+
                 }
             }
 
