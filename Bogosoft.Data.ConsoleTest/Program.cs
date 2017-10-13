@@ -3,6 +3,7 @@ using System.IO;
 
 namespace Bogosoft.Data.ConsoleTest
 {
+    [Obsolete("This will be removed in the future when comprehensive unit tests are available.")]
     class Program
     {
         static void Main(string[] args)
