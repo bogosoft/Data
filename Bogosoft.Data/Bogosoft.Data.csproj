@@ -46,6 +46,9 @@
     <Compile Include="CsvToEnumerableAdapter.cs" />
     <Compile Include="IFlatFileReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="CharEnumerableExtensions.cs" />
+    <Compile Include="StandardFlatFileReader.cs" />
+    <Compile Include="StreamReaderExtensions.cs" />
     <Compile Include="TypedArrayExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
