@@ -9,11 +9,13 @@ namespace Bogosoft.Data.ConsoleTest
         {
             using (var reader = new StreamReader("Heroes.csv"))
             {
-                var heroes = new CsvToEnumerableAdapter<Hero>(Map, reader);
+                var buffer = new string[3];
 
-                foreach (var hero in heroes)
+                var csv = new StandardFlatFileReader(reader);
+
+                while (csv.NextLine(buffer))
                 {
-                    Console.WriteLine(hero);
+
                 }
             }
 
