@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bogosoft.Data", "Bogosoft.D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bogosoft.Data.ConsoleTest", "Bogosoft.Data.ConsoleTest\Bogosoft.Data.ConsoleTest.csproj", "{48912814-FD1D-40B1-B241-D728919505AB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bogosoft.Data.Tests", "Bogosoft.Data.Tests\Bogosoft.Data.Tests.csproj", "{1713FC6D-DD6E-4959-A973-D3A1A10241F1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{48912814-FD1D-40B1-B241-D728919505AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48912814-FD1D-40B1-B241-D728919505AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48912814-FD1D-40B1-B241-D728919505AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1713FC6D-DD6E-4959-A973-D3A1A10241F1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1713FC6D-DD6E-4959-A973-D3A1A10241F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1713FC6D-DD6E-4959-A973-D3A1A10241F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1713FC6D-DD6E-4959-A973-D3A1A10241F1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
