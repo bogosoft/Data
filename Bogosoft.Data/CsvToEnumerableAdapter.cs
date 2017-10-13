@@ -10,6 +10,7 @@ namespace Bogosoft.Data
     /// An adapter to make comma-separated value data enumerable.
     /// </summary>
     /// <typeparam name="T">The type of the enumerable value.</typeparam>
+    [Obsolete("Use IFlatFileReader.Select( ... ) instead of this class.")]
     public class CsvToEnumerableAdapter<T> : IEnumerable<T>
     {
         internal class Enumerator : IEnumerator<T>
