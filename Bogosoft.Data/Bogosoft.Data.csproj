@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Buffer.cs" />
     <Compile Include="CsvToEnumerableAdapter.cs" />
+    <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="RowSequenceDataReader.cs" />
     <Compile Include="FlatFileReaderExtensions.cs" />
     <Compile Include="IFlatFileReader.cs" />
