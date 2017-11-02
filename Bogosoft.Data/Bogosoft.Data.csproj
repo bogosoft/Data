@@ -45,7 +45,9 @@
     <Compile Include="Buffer.cs" />
     <Compile Include="CsvToEnumerableAdapter.cs" />
     <Compile Include="DataReaderDecoratorBase.cs" />
+    <Compile Include="DbDataReaderExtensions.cs" />
     <Compile Include="EnumerableExtensions.cs" />
+    <Compile Include="PrependingDataReader.cs" />
     <Compile Include="RowSequenceDataReader.cs" />
     <Compile Include="FlatFileReaderExtensions.cs" />
     <Compile Include="IFlatFileReader.cs" />
@@ -54,6 +56,7 @@
     <Compile Include="StandardFlatFileReader.cs" />
     <Compile Include="StreamReaderExtensions.cs" />
     <Compile Include="TypedArrayExtensions.cs" />
+    <Compile Include="ValueComputor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Bogosoft.Data.nuspec" />
