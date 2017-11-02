@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,9 +23,10 @@ namespace Bogosoft.Data
         public char FieldSeparator = ',';
 
         /// <summary>
-        /// Get or set whether an empty string is returned as a null value.
+        /// Get or set a strategy for determining whether a field
+        /// is considered to be a null value.
         /// </summary>
-        public bool NullIfEmpty = true;
+        public Func<string, bool> NullIf = x => x.Length == 0;
 
         /// <summary>
         /// Get or set the character that identifies when a quoted sequence of characters begins.
@@ -94,7 +96,7 @@ namespace Bogosoft.Data
 
             foreach(var field in reader.ReadLine().GetFields(this.buffer, QuoteChar, FieldSeparator))
             {
-                buffer[i++] = field.Length == 0 && NullIfEmpty ? null : field;
+                buffer[i++] = NullIf.Invoke(field) ? null : field;
             }
 
             return true;
@@ -123,7 +125,7 @@ namespace Bogosoft.Data
 
             foreach(var field in line.GetFields(this.buffer, QuoteChar, FieldSeparator))
             {
-                buffer[i++] = field.Length == 0 && NullIfEmpty ? null : field;
+                buffer[i++] = NullIf.Invoke(field) ? null : field;
             }
 
             return true;
