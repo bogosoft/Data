@@ -42,13 +42,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ArrayExtensions.cs" />
+    <Compile Include="ArraySequenceExtensions.cs" />
     <Compile Include="Buffer.cs" />
     <Compile Include="CsvToEnumerableAdapter.cs" />
     <Compile Include="DataReaderDecoratorBase.cs" />
     <Compile Include="DbDataReaderExtensions.cs" />
     <Compile Include="EnumerableExtensions.cs" />
+    <Compile Include="DataReaderBase.cs" />
+    <Compile Include="ObjectArraySequenceDataReader.cs" />
+    <Compile Include="Parser.cs" />
     <Compile Include="PrependingDataReader.cs" />
-    <Compile Include="RowSequenceDataReader.cs" />
+    <Compile Include="StringArraySequenceDataReader.cs" />
     <Compile Include="FlatFileReaderExtensions.cs" />
     <Compile Include="IFlatFileReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
