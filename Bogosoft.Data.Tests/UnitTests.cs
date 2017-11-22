@@ -22,6 +22,51 @@ namespace Bogosoft.Data.Tests
         }
 
         [TestCase]
+        public void ObjectArraySequenceDataReaderInfersColumnNamesCorrectly()
+        {
+            var columns = new string[] { One, Two, Three };
+            var records = new List<string[]> { columns };
+
+            using (var reader = records.ToDataReader())
+            {
+                for (var i = 0; i < columns.Length; i++)
+                {
+                    reader.GetName(i).ShouldEqual(columns[i]);
+                }
+
+                reader.Read().ShouldBeFalse();
+            }
+        }
+
+        [TestCase]
+        public void ObjectArraySequenceDataReaderRetrievesFieldValueByColumnNameCorrectly()
+        {
+            var records = new List<string[]>();
+
+            var columns = new string[] { "First", "Second", "Third" };
+
+            records.Add(columns);
+
+            var row = new string[] { One, Two, Three };
+
+            records.Add(row);
+
+            using (var reader = records.ToDataReader())
+            {
+                reader.Read().ShouldBeTrue();
+
+                for (var i = 0; i < columns.Length; i++)
+                {
+                    reader[i].ShouldEqual(row[i]);
+
+                    reader[columns[i]].ShouldEqual(row[i]);
+                }
+
+                reader.Read().ShouldBeFalse();
+            }
+        }
+
+        [TestCase]
         public void PrependedDataReaderReturnsNewValueFromFirstOrdinalPosition()
         {
             using (var reader = Rows.ToDataReader())
