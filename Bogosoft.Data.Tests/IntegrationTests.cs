@@ -84,7 +84,7 @@ CREATE TABLE {Table.Hero}(
                 {
                     var csv = new StandardFlatFileReader(source);
 
-                    using (var reader = RowSequenceDataReader.WithFieldNamesOnFirstLine(csv))
+                    using (var reader = csv.ToDataReader())
                     using (var loader = new SqlBulkCopy(connection))
                     {
                         loader.DestinationTableName = Table.Hero;

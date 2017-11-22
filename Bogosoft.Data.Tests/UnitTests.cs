@@ -24,7 +24,7 @@ namespace Bogosoft.Data.Tests
         [TestCase]
         public void PrependedDataReaderReturnsNewValueFromFirstOrdinalPosition()
         {
-            using (var reader = RowSequenceDataReader.WithFieldNamesOnFirstLine(Rows))
+            using (var reader = Rows.ToDataReader())
             {
                 reader.Read().ShouldBeTrue();
 
@@ -33,7 +33,7 @@ namespace Bogosoft.Data.Tests
 
             var added = DateTime.UtcNow.ToString();
 
-            using (var reader = RowSequenceDataReader.WithFieldNamesOnFirstLine(Rows).Prepend("Zeroeth", added))
+            using (var reader = Rows.ToDataReader().Prepend("Zeroeth", added))
             {
                 reader.Read().ShouldBeTrue();
 
