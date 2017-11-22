@@ -2,6 +2,7 @@
 using Should;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bogosoft.Data.Tests
 {
@@ -84,6 +85,34 @@ namespace Bogosoft.Data.Tests
 
                 reader.GetFieldValue<string>(0).ShouldEqual(added);
                 reader.GetFieldValue<string>(1).ShouldEqual(One);
+            }
+        }
+
+        [TestCase]
+        public void StringValuedRecordParsingWorksAsExpected()
+        {
+            var records = new List<string[]>();
+
+            records.Add(new[] { "Sample Date", "Sample Size" });
+            records.Add(new[] { "2010-01-01", "256" });
+
+            var parsers = new Parser[] { x => DateTime.Parse(x), x => int.Parse(x) };
+
+            var test = records.Parse(parsers).ToArray();
+
+            using (var reader = records.Parse(parsers).ToDataReader())
+            {
+                reader.Read().ShouldBeTrue();
+
+                reader["Sample Date"].ShouldBeType<DateTime>();
+
+                reader.GetDateTime(reader.GetOrdinal("Sample Date")).ShouldEqual(DateTime.Parse("2010-01-01"));
+
+                reader["Sample Size"].ShouldBeType<int>();
+
+                reader.GetInt32(reader.GetOrdinal("Sample Size")).ShouldEqual(int.Parse("256"));
+
+                reader.Read().ShouldBeFalse();
             }
         }
     }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Bogosoft.Data
 {
@@ -99,12 +100,7 @@ namespace Bogosoft.Data
                 throw new ArgumentNullException(nameof(parsers));
             }
 
-            if (!records.MoveNext())
-            {
-                yield break;
-            }
-
-            object[] buffer = records.Current;
+            object[] buffer = columns.Cast<object>().ToArray();
 
             yield return buffer;
 
