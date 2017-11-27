@@ -24,7 +24,18 @@ namespace Bogosoft.Data
         /// </exception>
         public static DbDataReader ToDataReader(this IEnumerable<object[]> records)
         {
-            return records.GetEnumerator().ToDataReader();
+            IEnumerator<object[]> enumerator = null;
+
+            try
+            {
+                return (enumerator = records.GetEnumerator()).ToDataReader();
+            }
+            catch (Exception)
+            {
+                enumerator?.Dispose();
+
+                throw;
+            }
         }
 
         /// <summary>
@@ -41,7 +52,18 @@ namespace Bogosoft.Data
         /// </exception>
         public static DbDataReader ToDataReader(this IEnumerable<object[]> records, IEnumerable<string> columns)
         {
-            return records.GetEnumerator().ToDataReader(columns);
+            IEnumerator<object[]> enumerator = null;
+
+            try
+            {
+                return (enumerator = records.GetEnumerator()).ToDataReader(columns);
+            }
+            catch (Exception)
+            {
+                enumerator?.Dispose();
+
+                throw;
+            }
         }
 
         /// <summary>
@@ -123,7 +145,18 @@ namespace Bogosoft.Data
         /// </exception>
         public static DbDataReader ToDataReader(this IEnumerable<string[]> records, IEnumerable<Parser> parsers)
         {
-            return records.GetEnumerator().ToDataReader(parsers);
+            IEnumerator<string[]> enumerator = null;
+
+            try
+            {
+                return (enumerator = records.GetEnumerator()).ToDataReader(parsers);
+            }
+            catch (Exception)
+            {
+                enumerator?.Dispose();
+
+                throw;
+            }
         }
 
         /// <summary>
@@ -153,7 +186,18 @@ namespace Bogosoft.Data
             IEnumerable<Parser> parsers
             )
         {
-            return records.GetEnumerator().ToDataReader(columns, parsers);
+            IEnumerator<string[]> enumerator = null;
+
+            try
+            {
+                return (enumerator = records.GetEnumerator()).ToDataReader(columns, parsers);
+            }
+            catch (Exception)
+            {
+                enumerator?.Dispose();
+
+                throw;
+            }
         }
 
         /// <summary>
@@ -268,7 +312,18 @@ namespace Bogosoft.Data
             IEnumerable<ValueExtractor<T>> extractors
             )
         {
-            return objects.GetEnumerator().ToDataReader(columns, extractors);
+            IEnumerator<T> enumerator = null;
+
+            try
+            {
+                return (enumerator = objects.GetEnumerator()).ToDataReader(columns, extractors);
+            }
+            catch (Exception)
+            {
+                enumerator?.Dispose();
+
+                throw;
+            }
         }
 
         /// <summary>
