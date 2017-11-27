@@ -45,7 +45,6 @@
     <Compile Include="ArrayExtensions.cs" />
     <Compile Include="ArraySequenceExtensions.cs" />
     <Compile Include="Buffer.cs" />
-    <Compile Include="CsvToEnumerableAdapter.cs" />
     <Compile Include="DataReaderDecoratorBase.cs" />
     <Compile Include="DbDataReaderExtensions.cs" />
     <Compile Include="EnumerableExtensions.cs" />
