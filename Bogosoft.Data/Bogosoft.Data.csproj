@@ -50,8 +50,10 @@
     <Compile Include="DbDataReaderExtensions.cs" />
     <Compile Include="EnumerableExtensions.cs" />
     <Compile Include="DataReaderBase.cs" />
+    <Compile Include="Messages.cs" />
     <Compile Include="ObjectArraySequenceDataReader.cs" />
     <Compile Include="Parser.cs" />
+    <Compile Include="ParsingDataReader.cs" />
     <Compile Include="PrependingDataReader.cs" />
     <Compile Include="StringArraySequenceDataReader.cs" />
     <Compile Include="FlatFileReaderExtensions.cs" />
