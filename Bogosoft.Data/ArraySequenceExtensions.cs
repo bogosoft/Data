@@ -44,8 +44,8 @@ namespace Bogosoft.Data
         /// </summary>
         /// <param name="records">The current sequence of records.</param>
         /// <param name="columns">
-        /// A sequence of column names. The ordinality of each column will correspond
-        /// to the position of the column name within the given sequence.
+        /// A sequence of column names. The ordinal position of each column in the resulting data reader
+        /// will correspond exactly to the position of the column name within the given sequence.
         /// </param>
         /// <returns>
         /// The current record enumerator wrapped in a data reader.
@@ -90,8 +90,8 @@ namespace Bogosoft.Data
         /// </summary>
         /// <param name="records">The current sequence of records.</param>
         /// <param name="columns">
-        /// A sequence of column names. The ordinality of each column will correspond
-        /// to the position of the column name within the given sequence.
+        /// A sequence of column names. The ordinal position of each column in the resulting data reader
+        /// will correspond exactly to the position of the column name within the given sequence.
         /// </param>
         /// <returns>The current sequence of records wrapped in a data reader.</returns>
         /// <exception cref="ArgumentNullException">
@@ -141,8 +141,8 @@ namespace Bogosoft.Data
         /// </summary>
         /// <param name="records">The current sequence of records.</param>
         /// <param name="columns">
-        /// A sequence of column names. The ordinality of each column will correspond
-        /// to the position of the column name within the given sequence.
+        /// A sequence of column names. The ordinal position of each column in the resulting data reader
+        /// will correspond exactly to the position of the column name within the given sequence.
         /// </param>
         /// <param name="parsers">
         /// A sequence of parsers to use for converting string values to objects. The ordinal position of a
@@ -206,8 +206,8 @@ namespace Bogosoft.Data
         /// </summary>
         /// <param name="records">The current sequence of records.</param>
         /// <param name="columns">
-        /// A sequence of column names. The ordinality of each column will correspond
-        /// to the position of the column name within the given sequence.
+        /// A sequence of column names. The ordinal position of each column in the resulting data reader
+        /// will correspond exactly to the position of the column name within the given sequence.
         /// </param>
         /// <param name="parsers">
         /// A sequence of parsers to use for converting string values to objects. The ordinal position of a
