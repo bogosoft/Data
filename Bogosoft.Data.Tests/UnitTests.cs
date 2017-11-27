@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Bogosoft.Testing.Objects;
+using NUnit.Framework;
 using Should;
 using System;
 using System.Collections.Generic;
@@ -68,6 +69,32 @@ namespace Bogosoft.Data.Tests
         }
 
         [TestCase]
+        public void ParsingDataReaderWorksAsExpected()
+        {
+            var records = new List<string[]>();
+
+            records.Add(new[] { "Sample Date", "Sample Size" });
+            records.Add(new[] { "2010-01-01", "256" });
+
+            var parsers = new Parser[] { x => DateTime.Parse(x), x => int.Parse(x) };
+
+            using (var reader = records.ToDataReader(parsers))
+            {
+                reader.Read().ShouldBeTrue();
+
+                reader["Sample Date"].ShouldBeType<DateTime>();
+
+                reader.GetDateTime(reader.GetOrdinal("Sample Date")).ShouldEqual(DateTime.Parse("2010-01-01"));
+
+                reader["Sample Size"].ShouldBeType<int>();
+
+                reader.GetInt32(reader.GetOrdinal("Sample Size")).ShouldEqual(int.Parse("256"));
+
+                reader.Read().ShouldBeFalse();
+            }
+        }
+
+        [TestCase]
         public void PrependedDataReaderReturnsNewValueFromFirstOrdinalPosition()
         {
             using (var reader = Rows.ToDataReader())
@@ -98,8 +125,6 @@ namespace Bogosoft.Data.Tests
 
             var parsers = new Parser[] { x => DateTime.Parse(x), x => int.Parse(x) };
 
-            var test = records.Parse(parsers).ToArray();
-
             using (var reader = records.Parse(parsers).ToDataReader())
             {
                 reader.Read().ShouldBeTrue();
@@ -113,6 +138,41 @@ namespace Bogosoft.Data.Tests
                 reader.GetInt32(reader.GetOrdinal("Sample Size")).ShouldEqual(int.Parse("256"));
 
                 reader.Read().ShouldBeFalse();
+            }
+        }
+
+        [TestCase]
+        public void TypedSequenceDataReaderWorksAsExpected()
+        {
+            IEnumerable<CelestialBody> celestialBodies = CelestialBody.All.ToArray();
+
+            var columns = new[] { "Name", "Type", "Mass" };
+
+            var extractors = new ValueExtractor<CelestialBody>[]
+            {
+                x => x.Name,
+                x => x.Mass,
+                x => x.Type.ToString()
+            };
+
+            using (var reader = celestialBodies.ToDataReader(columns, extractors))
+            using (var enumerator = celestialBodies.GetEnumerator())
+            {
+                while (reader.Read())
+                {
+                    enumerator.MoveNext().ShouldBeTrue();
+
+                    for (var i = 0; i < columns.Length; i++)
+                    {
+                        reader.GetValue(i).ShouldEqual(extractors[i].Invoke(enumerator.Current));
+
+                        reader[i].ShouldEqual(extractors[i].Invoke(enumerator.Current));
+
+                        reader[columns[i]].ShouldEqual(extractors[i].Invoke(enumerator.Current));
+                    }
+                }
+
+                enumerator.MoveNext().ShouldBeFalse();
             }
         }
     }
