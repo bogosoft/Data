@@ -62,7 +62,9 @@
     <Compile Include="StandardFlatFileReader.cs" />
     <Compile Include="StreamReaderExtensions.cs" />
     <Compile Include="TypedArrayExtensions.cs" />
+    <Compile Include="TypedSequenceDataReader.cs" />
     <Compile Include="ValueComputor.cs" />
+    <Compile Include="ValueExtractor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Bogosoft.Data.nuspec" />

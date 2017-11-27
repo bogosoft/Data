@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Bogosoft.Testing.Objects;
+using NUnit.Framework;
 using Should;
 using System;
 using System.Collections.Generic;
@@ -137,6 +138,41 @@ namespace Bogosoft.Data.Tests
                 reader.GetInt32(reader.GetOrdinal("Sample Size")).ShouldEqual(int.Parse("256"));
 
                 reader.Read().ShouldBeFalse();
+            }
+        }
+
+        [TestCase]
+        public void TypedSequenceDataReaderWorksAsExpected()
+        {
+            IEnumerable<CelestialBody> celestialBodies = CelestialBody.All.ToArray();
+
+            var columns = new[] { "Name", "Type", "Mass" };
+
+            var extractors = new ValueExtractor<CelestialBody>[]
+            {
+                x => x.Name,
+                x => x.Mass,
+                x => x.Type.ToString()
+            };
+
+            using (var reader = celestialBodies.ToDataReader(columns, extractors))
+            using (var enumerator = celestialBodies.GetEnumerator())
+            {
+                while (reader.Read())
+                {
+                    enumerator.MoveNext().ShouldBeTrue();
+
+                    for (var i = 0; i < columns.Length; i++)
+                    {
+                        reader.GetValue(i).ShouldEqual(extractors[i].Invoke(enumerator.Current));
+
+                        reader[i].ShouldEqual(extractors[i].Invoke(enumerator.Current));
+
+                        reader[columns[i]].ShouldEqual(extractors[i].Invoke(enumerator.Current));
+                    }
+                }
+
+                enumerator.MoveNext().ShouldBeFalse();
             }
         }
     }

@@ -12,6 +12,12 @@
         public const string NoRecords = "Sequence contains zero records.";
 
         /// <summary>
+        /// Get a message indicating that the number of value extracts in a given
+        /// sequence was less than the number of columns in a given sequence.
+        /// </summary>
+        public const string TooFewExtractors = "The number of given value extractors cannot be less thatn the number of given columns";
+
+        /// <summary>
         /// Get a message indicating that the number of parsers in a given sequence was
         /// less than the number of columns in a given sequence.
         /// </summary>

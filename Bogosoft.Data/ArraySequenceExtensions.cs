@@ -226,5 +226,68 @@ namespace Bogosoft.Data
         {
             return records.GetEnumerator().ToDataReader(columns, parsers);
         }
+
+        /// <summary>
+        /// Convert the current sequence of objects into a data reader.
+        /// </summary>
+        /// <typeparam name="T">The type of each object in the given sequence.</typeparam>
+        /// <param name="objects">A sequence of objects.</param>
+        /// <param name="columns">
+        /// A sequence of column names. The ordinal position of each column in the resulting data reader
+        /// will correspond exactly to the position of the column name within the given sequence.
+        /// </param>
+        /// <param name="extractors">
+        /// A sequence of value extractors to use for extracting values from objects. The ordinal position
+        /// of a value extractor within the sequence will correspond exactly to the ordinal position of the
+        /// extracted value to be placed within each record.
+        /// </param>
+        /// <returns>The current sequence of objects as a data reader.</returns>
+        public static DbDataReader ToDataReader<T>(
+            this IEnumerable<T> objects,
+            IEnumerable<string> columns,
+            IEnumerable<ValueExtractor<T>> extractors
+            )
+        {
+            return objects.GetEnumerator().ToDataReader(columns, extractors);
+        }
+
+        /// <summary>
+        /// Convert the current typed enumerator into a data reader.
+        /// </summary>
+        /// <typeparam name="T">The type of each object in the given sequence.</typeparam>
+        /// <param name="objects">A typed enumerator.</param>
+        /// <param name="columns">
+        /// A sequence of column names. The ordinal position of each column in the resulting data reader
+        /// will correspond exactly to the position of the column name within the given sequence.
+        /// </param>
+        /// <param name="extractors">
+        /// A sequence of value extractors to use for extracting values from objects. The ordinal position
+        /// of a value extractor within the sequence will correspond exactly to the ordinal position of the
+        /// extracted value to be placed within each record.
+        /// </param>
+        /// <returns>The current sequence of objects as a data reader.</returns>
+        public static DbDataReader ToDataReader<T>(
+            this IEnumerator<T> objects,
+            IEnumerable<string> columns,
+            IEnumerable<ValueExtractor<T>> extractors
+            )
+        {
+            if (objects is null)
+            {
+                throw new ArgumentNullException(nameof(objects));
+            }
+
+            if (columns is null)
+            {
+                throw new ArgumentNullException(nameof(columns));
+            }
+
+            if (extractors is null)
+            {
+                throw new ArgumentNullException(nameof(extractors));
+            }
+
+            return new TypedSequenceDataReader<T>(objects, columns.ToArray(), extractors.ToArray());
+        }
     }
 }
