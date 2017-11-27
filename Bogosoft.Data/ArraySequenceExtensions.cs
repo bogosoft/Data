@@ -17,7 +17,7 @@ namespace Bogosoft.Data
         /// <param name="records">The current sequence of records.</param>
         /// <returns>The current sequence of records wrapped in a data reader.</returns>
         /// <exception cref="ArgumentNullException">
-        /// Thronw in the event that the given sequene is null.
+        /// Thronw in the event that the given sequence is null.
         /// </exception>
         /// <exception cref="InvalidOperationException">
         /// Thrown in the event that the given sequence contains no records.
@@ -114,10 +114,12 @@ namespace Bogosoft.Data
         /// </param>
         /// <returns>The current sequence of records wrapped in a data reader.</returns>
         /// <exception cref="ArgumentNullException">
-        /// Thronw in the event that the given sequene is null.
+        /// Thronw in the event that the given sequence is null.
         /// </exception>
         /// <exception cref="InvalidOperationException">
-        /// Thrown in the event that the given sequence contains no records.
+        /// Thrown in the event that the given enumerator contains no records or in the event
+        /// that the length of the given sequence of parsers is less than the length of
+        /// the first record.
         /// </exception>
         public static DbDataReader ToDataReader(this IEnumerable<string[]> records, IEnumerable<Parser> parsers)
         {
@@ -140,6 +142,10 @@ namespace Bogosoft.Data
         /// <returns>The current sequence of records wrapped in a data reader.</returns>
         /// <exception cref="ArgumentNullException">
         /// Thronw in the event that the given sequence of records or sequence of column names is null.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown in the event that the length of the given sequence of parsers
+        /// is less than the length of the given sequence of columns names.
         /// </exception>
         public static DbDataReader ToDataReader(
             this IEnumerable<string[]> records,
@@ -167,7 +173,9 @@ namespace Bogosoft.Data
         /// Thronw in the event that the given enumerator is null.
         /// </exception>
         /// <exception cref="InvalidOperationException">
-        /// Thrown in the event that the given enumerator contains no records.
+        /// Thrown in the event that the given enumerator contains no records or in the event
+        /// that the length of the given sequence of parsers is less than the length of
+        /// the first record.
         /// </exception>
         public static DbDataReader ToDataReader(this IEnumerator<string[]> records, IEnumerable<Parser> parsers)
         {
@@ -202,6 +210,10 @@ namespace Bogosoft.Data
         /// </returns>
         /// <exception cref="ArgumentNullException">
         /// Thronw in the event that the given enumerator or the given column name sequence is null.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown in the event that the length of the given sequence of parsers
+        /// is less than the length of the given sequence of columns names.
         /// </exception>
         public static DbDataReader ToDataReader(
             this IEnumerator<string[]> records,
@@ -242,6 +254,14 @@ namespace Bogosoft.Data
         /// extracted value to be placed within each record.
         /// </param>
         /// <returns>The current sequence of objects as a data reader.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown in the event that the give sequence of objects, sequence of columns names
+        /// or sequence of value extractors is null.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown in the event that the length of the given sequence of value extractors
+        /// is less than the length of the given sequence of column names.
+        /// </exception>
         public static DbDataReader ToDataReader<T>(
             this IEnumerable<T> objects,
             IEnumerable<string> columns,
@@ -266,6 +286,14 @@ namespace Bogosoft.Data
         /// extracted value to be placed within each record.
         /// </param>
         /// <returns>The current sequence of objects as a data reader.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown in the event that the give enumerator, sequence of columns names
+        /// or sequence of value extractors is null.
+        /// </exception>
+        /// <exception cref="InvalidOperationException">
+        /// Thrown in the event that the length of the given sequence of value extractors
+        /// is less than the length of the given sequence of column names.
+        /// </exception>
         public static DbDataReader ToDataReader<T>(
             this IEnumerator<T> objects,
             IEnumerable<string> columns,
