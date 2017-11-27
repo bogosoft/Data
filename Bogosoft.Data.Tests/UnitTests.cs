@@ -68,6 +68,32 @@ namespace Bogosoft.Data.Tests
         }
 
         [TestCase]
+        public void ParsingDataReaderWorksAsExpected()
+        {
+            var records = new List<string[]>();
+
+            records.Add(new[] { "Sample Date", "Sample Size" });
+            records.Add(new[] { "2010-01-01", "256" });
+
+            var parsers = new Parser[] { x => DateTime.Parse(x), x => int.Parse(x) };
+
+            using (var reader = records.ToDataReader(parsers))
+            {
+                reader.Read().ShouldBeTrue();
+
+                reader["Sample Date"].ShouldBeType<DateTime>();
+
+                reader.GetDateTime(reader.GetOrdinal("Sample Date")).ShouldEqual(DateTime.Parse("2010-01-01"));
+
+                reader["Sample Size"].ShouldBeType<int>();
+
+                reader.GetInt32(reader.GetOrdinal("Sample Size")).ShouldEqual(int.Parse("256"));
+
+                reader.Read().ShouldBeFalse();
+            }
+        }
+
+        [TestCase]
         public void PrependedDataReaderReturnsNewValueFromFirstOrdinalPosition()
         {
             using (var reader = Rows.ToDataReader())
@@ -97,8 +123,6 @@ namespace Bogosoft.Data.Tests
             records.Add(new[] { "2010-01-01", "256" });
 
             var parsers = new Parser[] { x => DateTime.Parse(x), x => int.Parse(x) };
-
-            var test = records.Parse(parsers).ToArray();
 
             using (var reader = records.Parse(parsers).ToDataReader())
             {
