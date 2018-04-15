@@ -1,178 +1,118 @@
-﻿using Bogosoft.Testing.Objects;
+﻿using Bogosoft.Collections.Async;
+using Bogosoft.Testing.Objects;
 using NUnit.Framework;
-using Should;
+using Shouldly;
 using System;
 using System.Collections.Generic;
+using System.Data.Common;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Bogosoft.Data.Tests
 {
     [TestFixture, Category("Unit")]
     public class UnitTests
     {
-        const string One = "1";
-        const string Two = "2";
-        const string Three = "3";
+        const string Mass = "Mass";
+        const string Name = "Name";
+        const string PrimaryDistance = "Distance to Primary";
+        const string Type = "Type";
 
-        static IEnumerable<string[]> Rows
+        static List<Column<CelestialBody>> Columns = new List<Column<CelestialBody>>();
+
+        static bool AreEqual(CelestialBody a, CelestialBody b)
         {
-            get
+            if (a is null && b is null)
             {
-                yield return new[] { "First", "Second", "Third" };
-                yield return new[] { One, Two, Three };
+                return true;
+            }
+            else
+            {
+                return a.Mass == b.Mass
+                    && a.Name == b.Name
+                    && a.Orbit?.DistanceToPrimary == b.Orbit?.DistanceToPrimary
+                    && a.Type == b.Type;
             }
         }
 
-        [TestCase]
-        public void ObjectArraySequenceDataReaderInfersColumnNamesCorrectly()
+        static CelestialBody ReadCelestialBody(DbDataReader reader)
         {
-            var columns = new string[] { One, Two, Three };
-            var records = new List<string[]> { columns };
-
-            using (var reader = records.ToDataReader())
+            return new CelestialBody
             {
-                for (var i = 0; i < columns.Length; i++)
+                Mass = reader.GetFieldValue<float>(Mass),
+                Name = reader.GetFieldValue<string>(Name),
+                Orbit = new OrbitalInfo
                 {
-                    reader.GetName(i).ShouldEqual(columns[i]);
-                }
-
-                reader.Read().ShouldBeFalse();
-            }
-        }
-
-        [TestCase]
-        public void ObjectArraySequenceDataReaderRetrievesFieldValueByColumnNameCorrectly()
-        {
-            var records = new List<string[]>();
-
-            var columns = new string[] { "First", "Second", "Third" };
-
-            records.Add(columns);
-
-            var row = new string[] { One, Two, Three };
-
-            records.Add(row);
-
-            using (var reader = records.ToDataReader())
-            {
-                reader.Read().ShouldBeTrue();
-
-                for (var i = 0; i < columns.Length; i++)
-                {
-                    reader[i].ShouldEqual(row[i]);
-
-                    reader[columns[i]].ShouldEqual(row[i]);
-                }
-
-                reader.Read().ShouldBeFalse();
-            }
-        }
-
-        [TestCase]
-        public void ParsingDataReaderWorksAsExpected()
-        {
-            var records = new List<string[]>();
-
-            records.Add(new[] { "Sample Date", "Sample Size" });
-            records.Add(new[] { "2010-01-01", "256" });
-
-            var parsers = new Parser[] { x => DateTime.Parse(x), x => int.Parse(x) };
-
-            using (var reader = records.ToDataReader(parsers))
-            {
-                reader.Read().ShouldBeTrue();
-
-                reader["Sample Date"].ShouldBeType<DateTime>();
-
-                reader.GetDateTime(reader.GetOrdinal("Sample Date")).ShouldEqual(DateTime.Parse("2010-01-01"));
-
-                reader["Sample Size"].ShouldBeType<int>();
-
-                reader.GetInt32(reader.GetOrdinal("Sample Size")).ShouldEqual(int.Parse("256"));
-
-                reader.Read().ShouldBeFalse();
-            }
-        }
-
-        [TestCase]
-        public void PrependedDataReaderReturnsNewValueFromFirstOrdinalPosition()
-        {
-            using (var reader = Rows.ToDataReader())
-            {
-                reader.Read().ShouldBeTrue();
-
-                reader.GetFieldValue<string>(0).ShouldEqual(One);
-            }
-
-            var added = DateTime.UtcNow.ToString();
-
-            using (var reader = Rows.ToDataReader().Prepend("Zeroeth", added))
-            {
-                reader.Read().ShouldBeTrue();
-
-                reader.GetFieldValue<string>(0).ShouldEqual(added);
-                reader.GetFieldValue<string>(1).ShouldEqual(One);
-            }
-        }
-
-        [TestCase]
-        public void StringValuedRecordParsingWorksAsExpected()
-        {
-            var records = new List<string[]>();
-
-            records.Add(new[] { "Sample Date", "Sample Size" });
-            records.Add(new[] { "2010-01-01", "256" });
-
-            var parsers = new Parser[] { x => DateTime.Parse(x), x => int.Parse(x) };
-
-            using (var reader = records.Parse(parsers).ToDataReader())
-            {
-                reader.Read().ShouldBeTrue();
-
-                reader["Sample Date"].ShouldBeType<DateTime>();
-
-                reader.GetDateTime(reader.GetOrdinal("Sample Date")).ShouldEqual(DateTime.Parse("2010-01-01"));
-
-                reader["Sample Size"].ShouldBeType<int>();
-
-                reader.GetInt32(reader.GetOrdinal("Sample Size")).ShouldEqual(int.Parse("256"));
-
-                reader.Read().ShouldBeFalse();
-            }
-        }
-
-        [TestCase]
-        public void TypedSequenceDataReaderWorksAsExpected()
-        {
-            IEnumerable<CelestialBody> celestialBodies = CelestialBody.All.ToArray();
-
-            var columns = new[] { "Name", "Type", "Mass" };
-
-            var extractors = new ValueExtractor<CelestialBody>[]
-            {
-                x => x.Name,
-                x => x.Mass,
-                x => x.Type.ToString()
+                    DistanceToPrimary = reader.GetFieldValue<float>(PrimaryDistance)
+                },
+                Type = Enum.Parse<CelestialBodyType>(reader.GetFieldValue<string>(Type))
             };
+        }
 
-            using (var reader = celestialBodies.ToDataReader(columns, extractors))
-            using (var enumerator = celestialBodies.GetEnumerator())
+        [OneTimeSetUp]
+        public void Setup()
+        {
+            Columns.Add(new Column<CelestialBody>(Name, typeof(string), x => x.Name));
+            Columns.Add(new Column<CelestialBody>(Type, typeof(string), x => x.Type.ToString()));
+            Columns.Add(new Column<CelestialBody>(Mass, typeof(float), x => x.Mass));
+            Columns.Add(new Column<CelestialBody>(PrimaryDistance, typeof(float), x => x.Orbit.DistanceToPrimary));
+        }
+
+        [TestCase]
+        public async Task CanConvertAsyncEnumerableToDbDataReaderAndBack()
+        {
+            var expected = CelestialBody.All.ToAsyncEnumerable();
+
+            var actual = expected.ToDbDataReader(Columns).ToAsyncEnumerable(ReadCelestialBody);
+
+            using (var a = actual.GetEnumerator())
+            using (var e = expected.GetEnumerator())
             {
-                while (reader.Read())
+                while (await a.MoveNextAsync())
                 {
-                    enumerator.MoveNext().ShouldBeTrue();
+                    (await e.MoveNextAsync()).ShouldBeTrue();
 
-                    for (var i = 0; i < columns.Length; i++)
-                    {
-                        reader.GetValue(i).ShouldEqual(extractors[i].Invoke(enumerator.Current));
-
-                        reader[i].ShouldEqual(extractors[i].Invoke(enumerator.Current));
-
-                        reader[columns[i]].ShouldEqual(extractors[i].Invoke(enumerator.Current));
-                    }
+                    AreEqual(a.Current, e.Current).ShouldBeTrue();
                 }
 
-                enumerator.MoveNext().ShouldBeFalse();
+                (await e.MoveNextAsync()).ShouldBeFalse();
+            }
+        }
+
+        [TestCase]
+        public void CanConvertDbDataReaderToAsyncEnumerableAndBack()
+        {
+            new CelestialBodyDataReader().ToAsyncEnumerable(ReadCelestialBody)
+                                         .ToDbDataReader(Columns)
+                                         .ShouldHaveSameDataAs(new CelestialBodyDataReader());
+        }
+
+        [TestCase]
+        public void CanConvertDbDataReaderToEnumerableAndBack()
+        {
+            new CelestialBodyDataReader().ToEnumerable(ReadCelestialBody)
+                                         .ToDbDataReader(Columns)
+                                         .ShouldHaveSameDataAs(new CelestialBodyDataReader());
+        }
+
+        [TestCase]
+        public void CanConvertEnumerableToDbDataReaderAndBack()
+        {
+            var expected = CelestialBody.All;
+
+            var actual = expected.ToDbDataReader(Columns).ToEnumerable(ReadCelestialBody);
+
+            using (var a = actual.GetEnumerator())
+            using (var e = expected.GetEnumerator())
+            {
+                while (a.MoveNext())
+                {
+                    e.MoveNext().ShouldBeTrue();
+
+                    AreEqual(a.Current, e.Current).ShouldBeTrue();
+                }
+
+                e.MoveNext().ShouldBeFalse();
             }
         }
     }
