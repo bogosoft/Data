@@ -1,5 +1,4 @@
-﻿using Bogosoft.Collections.Async;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Threading;
@@ -13,7 +12,7 @@ namespace Bogosoft.Data
         Dictionary<string, int> columnIndicesByName = new Dictionary<string, int>();
         Column<T>[] columns;
         DataTable schemaTable;
-        object source;
+        IEnumerator<T> source;
 
         public override object this[int ordinal] => buffer[ordinal];
 
@@ -27,17 +26,7 @@ namespace Bogosoft.Data
 
         public override int RecordsAffected => 0;
 
-        internal CollectionToDataReaderAdapter(IAsyncEnumerator<T> source, Column<T>[] columns)
-            : this(source as object, columns)
-        {
-        }
-
         internal CollectionToDataReaderAdapter(IEnumerator<T> source, Column<T>[] columns)
-            : this(source as object, columns)
-        {
-        }
-
-        CollectionToDataReaderAdapter(object source, Column<T>[] columns)
         {
             buffer = new object[columns.Length];
 
@@ -62,12 +51,9 @@ namespace Bogosoft.Data
 
         protected override void Dispose(bool disposing)
         {
-            if (source is IDisposable)
-            {
-                (source as IDisposable).Dispose();
+            source.Dispose();
 
-                source = null;
-            }
+            source = null;
         }
 
         public override Type GetFieldType(int ordinal) => columns[ordinal].Type;
@@ -127,22 +113,6 @@ namespace Bogosoft.Data
 
         public override bool Read()
         {
-            if (source is IEnumerator<T>)
-            {
-                return Read(source as IEnumerator<T>);
-            }
-            else if (source is IAsyncEnumerator<T>)
-            {
-                return ReadAsync(source as IAsyncEnumerator<T>, CancellationToken.None).GetAwaiter().GetResult();
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        bool Read(IEnumerator<T> source)
-        {
             if (source.MoveNext())
             {
                 for (var i = 0; i < columns.Length; i++)
@@ -160,35 +130,9 @@ namespace Bogosoft.Data
 
         public override Task<bool> ReadAsync(CancellationToken token)
         {
-            if (source is IAsyncEnumerator<T>)
-            {
-                return ReadAsync(source as IAsyncEnumerator<T>, token);
-            }
-            else if (source is IEnumerable<T>)
-            {
-                return Task.FromResult(!token.IsCancellationRequested && Read(source as IEnumerator<T>));
-            }
-            else
-            {
-                return Task.FromResult(false);
-            }
-        }
+            token.ThrowIfCancellationRequested();
 
-        async Task<bool> ReadAsync(IAsyncEnumerator<T> source, CancellationToken token)
-        {
-            if (await source.MoveNextAsync(token))
-            {
-                for (var i = 0; i < columns.Length; i++)
-                {
-                    buffer[i] = columns[i].ExtractValueFrom(source.Current);
-                }
-
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return Task.FromResult(Read());
         }
     }
 }

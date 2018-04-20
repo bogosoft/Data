@@ -1,5 +1,4 @@
-﻿using Bogosoft.Collections.Async;
-using Bogosoft.Testing.Objects;
+﻿using Bogosoft.Testing.Objects;
 using NUnit.Framework;
 using Shouldly;
 using System;
@@ -56,35 +55,6 @@ namespace Bogosoft.Data.Tests
             Columns.Add(new Column<CelestialBody>(Type, typeof(string), x => x.Type.ToString()));
             Columns.Add(new Column<CelestialBody>(Mass, typeof(float), x => x.Mass));
             Columns.Add(new Column<CelestialBody>(PrimaryDistance, typeof(float), x => x.Orbit.DistanceToPrimary));
-        }
-
-        [TestCase]
-        public async Task CanConvertAsyncEnumerableToDbDataReaderAndBack()
-        {
-            var expected = CelestialBody.All.ToAsyncEnumerable();
-
-            var actual = expected.ToDbDataReader(Columns).ToAsyncEnumerable(ReadCelestialBody);
-
-            using (var a = actual.GetEnumerator())
-            using (var e = expected.GetEnumerator())
-            {
-                while (await a.MoveNextAsync())
-                {
-                    (await e.MoveNextAsync()).ShouldBeTrue();
-
-                    AreEqual(a.Current, e.Current).ShouldBeTrue();
-                }
-
-                (await e.MoveNextAsync()).ShouldBeFalse();
-            }
-        }
-
-        [TestCase]
-        public void CanConvertDbDataReaderToAsyncEnumerableAndBack()
-        {
-            new CelestialBodyDataReader().ToAsyncEnumerable(ReadCelestialBody)
-                                         .ToDbDataReader(Columns)
-                                         .ShouldHaveSameDataAs(new CelestialBodyDataReader());
         }
 
         [TestCase]

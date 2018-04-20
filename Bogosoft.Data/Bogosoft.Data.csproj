@@ -27,7 +27,4 @@
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net45|AnyCPU'">
 		<DocumentationFile>bin\Release\net45\Bogosoft.Data.xml</DocumentationFile>
 	</PropertyGroup>
-	<ItemGroup>
-	  <PackageReference Include="Bogosoft.Collections.Async" Version="2.0.1.28" />
-	</ItemGroup>
 </Project>
