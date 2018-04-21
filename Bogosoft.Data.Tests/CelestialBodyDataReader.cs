@@ -1,12 +1,14 @@
 ﻿using Bogosoft.Testing.Objects;
 using System;
 using System.Collections.Generic;
+using System.Data;
 
 namespace Bogosoft.Data.Tests
 {
     class CelestialBodyDataReader : SimplifiedDataReaderBase
     {
         IEnumerator<CelestialBody> enumerator = CelestialBody.All.GetEnumerator();
+        DataTable schemaTable;
 
         public override object this[int ordinal] => GetValue(ordinal);
 
@@ -19,6 +21,21 @@ namespace Bogosoft.Data.Tests
         public override bool IsClosed => enumerator == null;
 
         public override int RecordsAffected => 0;
+
+        internal CelestialBodyDataReader()
+        {
+            var columns = (schemaTable = new DataTable()).Columns;
+
+            for (var i = 0; i < FieldCount; i++)
+            {
+                columns.Add(GetName(i), GetFieldType(i));
+            }
+        }
+
+        public override void Close()
+        {
+            enumerator = null;
+        }
 
         public override Type GetFieldType(int ordinal)
         {
@@ -68,6 +85,8 @@ namespace Bogosoft.Data.Tests
                     throw new IndexOutOfRangeException();
             }
         }
+
+        public override DataTable GetSchemaTable() => schemaTable;
 
         public override long GetValue<T>(int ordinal, long dataOffset, T[] buffer, int bufferOffset, int length)
         {
