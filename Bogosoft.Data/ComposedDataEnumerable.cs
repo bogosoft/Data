@@ -30,9 +30,7 @@ namespace Bogosoft.Data
         /// <param name="commandProvider">
         /// A delegate responsible for generating an executable command against a given connection.
         /// </param>
-        /// <param name="mapper">
-        /// A strategy for mapping values from each row of a data reader to objects of the specified type.
-        /// </param>
+        /// <param name="mapper">A data reader row to entity mapping strategy.</param>
         public ComposedDataEnumerable(
             Func<TConnection> connector,
             Func<TConnection, TCommand> commandProvider,
