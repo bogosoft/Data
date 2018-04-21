@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Bogosoft.Data.Tests
 {
-    class CelestialBodyDataReader : ExtendedDataReaderBase
+    class CelestialBodyDataReader : SimplifiedDataReaderBase
     {
         IEnumerator<CelestialBody> enumerator = CelestialBody.All.GetEnumerator();
 

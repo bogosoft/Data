@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bogosoft.Data
 {
-    class CollectionToDataReaderAdapter<T> : ExtendedDataReaderBase
+    class CollectionToDataReaderAdapter<T> : SimplifiedDataReaderBase
     {
         object[] buffer;
         Dictionary<string, int> columnIndicesByName = new Dictionary<string, int>();
