@@ -238,8 +238,21 @@ namespace Bogosoft.Data
         /// A strategy for mapping each record of the current data reader to an object of the specified type.
         /// </param>
         /// <returns>An enumerable sequence of items of the specified type.</returns>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown in the event that either the given data reader or mapping strategy is null.
+        /// </exception>
         public static IEnumerable<T> ToEnumerable<T>(this DbDataReader reader, Func<DbDataReader, T> mapper)
         {
+            if (reader is null)
+            {
+                throw new ArgumentNullException(nameof(reader));
+            }
+
+            if (mapper is null)
+            {
+                throw new ArgumentNullException(nameof(mapper));
+            }
+
             while (reader.Read())
             {
                 yield return mapper.Invoke(reader);
