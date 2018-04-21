@@ -12,7 +12,7 @@ namespace Bogosoft.Data
         /// Add a new computed column to the current list by providing its components separately.
         /// </summary>
         /// <typeparam name="T">The type of the object to be used when extracting a field value.</typeparam>
-        /// <param name="columns">The current list of field providers.</param>
+        /// <param name="columns">The current list of computed column definitions.</param>
         /// <param name="name">
         /// A value corresponding to the name of the column.
         /// </param>
