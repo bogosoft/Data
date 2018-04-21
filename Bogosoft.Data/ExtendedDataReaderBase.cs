@@ -6,8 +6,7 @@ namespace Bogosoft.Data
 {
     /// <summary>
     /// A partial implementation of the <see cref="DbDataReader"/> type that reduces the number
-    /// of methods and properties deriving classes need to implement. It also provides additional
-    /// return types for the <see cref="DbDataReader.GetFieldValue{T}"/> method.
+    /// of methods and properties deriving classes need to implement.
     /// </summary>
     public abstract class ExtendedDataReaderBase : DbDataReader
     {
