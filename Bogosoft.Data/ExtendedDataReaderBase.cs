@@ -1,18 +1,15 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Common;
 
 namespace Bogosoft.Data
 {
     /// <summary>
     /// A partial implementation of the <see cref="DbDataReader"/> type that reduces the number
-    /// of methods and properties deriving classes need to implement. Additionally, implements
-    /// <see cref="IEnumerable{IDataRecord}"/> and provides additional return types for the
-    /// <see cref="DbDataReader.GetFieldValue{T}"/> method.
+    /// of methods and properties deriving classes need to implement. It also provides additional
+    /// return types for the <see cref="DbDataReader.GetFieldValue{T}"/> method.
     /// </summary>
-    public abstract class ExtendedDataReaderBase : DbDataReader, IEnumerable<IDataRecord>
+    public abstract class ExtendedDataReaderBase : DbDataReader
     {
         /// <summary>
         /// Locate a field in the current row by a given name and return its value.
@@ -120,19 +117,7 @@ namespace Bogosoft.Data
         public override double GetDouble(int ordinal) => GetFieldValue<double>(ordinal);
 
         /// <summary>
-        /// Get an object capable of iterating over the current data reader.
-        /// </summary>
-        /// <returns>An enumerator.</returns>
-        IEnumerator<IDataRecord> IEnumerable<IDataRecord>.GetEnumerator()
-        {
-            while (Read())
-            {
-                yield return this;
-            }
-        }
-
-        /// <summary>
-        /// Get an object capable of iterating over the current data reader.
+        /// Get an object capable of enumerating over the current data reader.
         /// </summary>
         /// <returns>An enumerator.</returns>
         public override IEnumerator GetEnumerator()
