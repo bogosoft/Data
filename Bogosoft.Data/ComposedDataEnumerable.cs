@@ -31,12 +31,30 @@ namespace Bogosoft.Data
         /// A delegate responsible for generating an executable command against a given connection.
         /// </param>
         /// <param name="mapper">A data reader row to entity mapping strategy.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown in the event that the given connector, command provider or mapping strategy is null.
+        /// </exception>
         public ComposedDataEnumerable(
             Func<TConnection> connector,
             Func<TConnection, TCommand> commandProvider,
             Func<TReader, TEntity> mapper
             )
         {
+            if (connector is null)
+            {
+                throw new ArgumentNullException(nameof(connector));
+            }
+
+            if (commandProvider is null)
+            {
+                throw new ArgumentNullException(nameof(commandProvider));
+            }
+
+            if (mapper is null)
+            {
+                throw new ArgumentNullException(nameof(mapper));
+            }
+
             this.commandProvider = commandProvider;
             this.connector = connector;
             this.mapper = mapper;
