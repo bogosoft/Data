@@ -24,10 +24,11 @@ build:
   include_nuget_references: true
   verbosity: normal
 test:
-  assemblies: '**\*.Tests.dll'
+  assemblies: '**\*Tests.dll'
   categories:
     only:
     - Unit
+    - End2End
 deploy:
 - provider: NuGet
   server: https://www.myget.org/F/bogolib/api/v2/package
