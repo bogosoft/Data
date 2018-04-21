@@ -43,6 +43,21 @@ namespace Bogosoft.Data
         }
 
         /// <summary>
+        /// Create a new instance of the composed data enumerable class.
+        /// </summary>
+        /// <param name="connector">A data source connection provider.</param>
+        /// <param name="commandProvider">An executable command provider.</param>
+        /// <param name="mapper">A data reader row to entity mapping strategy.</param>
+        public ComposedDataEnumerable(
+            IConnector<TConnection> connector,
+            ICommandProvider<TConnection, TCommand> commandProvider,
+            IEntityMapper<TReader, TEntity> mapper
+            )
+            : this(connector.Connect, commandProvider.GetCommand, mapper.Map)
+        {
+        }
+
+        /// <summary>
         /// Get an object capable of enumerating over the current sequence.
         /// </summary>
         /// <returns>An enumerator.</returns>
