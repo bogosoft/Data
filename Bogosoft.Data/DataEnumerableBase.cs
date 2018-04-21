@@ -40,6 +40,7 @@ namespace Bogosoft.Data
         {
             TCommand command = null;
             TConnection connection = null;
+            TReader reader = null;
 
             try
             {
@@ -51,17 +52,22 @@ namespace Bogosoft.Data
                 }
 
                 command = BuildCommand(connection);
+
+                reader = command.ExecuteReader() as TReader;
             }
             catch (Exception)
             {
+                reader?.Dispose();
                 command?.Dispose();
                 connection?.Dispose();
+
+                throw;
             }
 
             return new DataEnumerator<TConnection, TCommand, TReader, TEntity>(
                 connection,
                 command,
-                command.ExecuteReader() as TReader,
+                reader,
                 Map
                 );
         }
