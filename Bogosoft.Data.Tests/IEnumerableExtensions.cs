@@ -22,15 +22,15 @@ namespace Bogosoft.Data.Tests
             return -1;
         }
 
-        internal static IEnumerable<object[]> ToRecords<T>(this IEnumerable<T> items, Column<T>[] columns)
+        internal static IEnumerable<object[]> ToRecords<T>(this IEnumerable<T> items, FieldAdapter<T>[] fields)
         {
-            var buffer = new object[columns.Length];
+            var buffer = new object[fields.Length];
 
             foreach (var item in items)
             {
-                for (var i = 0; i < columns.Length; i++)
+                for (var i = 0; i < fields.Length; i++)
                 {
-                    buffer[i] = columns[i].ExtractValueFrom(item);
+                    buffer[i] = fields[i].ExtractValueFrom(item);
                 }
 
                 yield return buffer;

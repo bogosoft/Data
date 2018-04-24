@@ -15,7 +15,7 @@ namespace Bogosoft.Data.Tests
         const string PrimaryDistance = "Distance to Primary";
         const string Type = "Type";
 
-        static List<Column<CelestialBody>> Columns = new List<Column<CelestialBody>>();
+        static List<FieldAdapter<CelestialBody>> Fields = new List<FieldAdapter<CelestialBody>>();
 
         static bool AreEqual(CelestialBody a, CelestialBody b)
         {
@@ -53,17 +53,17 @@ namespace Bogosoft.Data.Tests
         [OneTimeSetUp]
         public void Setup()
         {
-            Columns.Add(new Column<CelestialBody>(Name, typeof(string), x => x.Name));
-            Columns.Add(new Column<CelestialBody>(Type, typeof(string), x => x.Type.ToString()));
-            Columns.Add(new Column<CelestialBody>(Mass, typeof(float), x => x.Mass));
-            Columns.Add(new Column<CelestialBody>(PrimaryDistance, typeof(float), x => x.Orbit.DistanceToPrimary));
+            Fields.Add(new FieldAdapter<CelestialBody>(Name, typeof(string), x => x.Name));
+            Fields.Add(new FieldAdapter<CelestialBody>(Type, typeof(string), x => x.Type.ToString()));
+            Fields.Add(new FieldAdapter<CelestialBody>(Mass, typeof(float), x => x.Mass));
+            Fields.Add(new FieldAdapter<CelestialBody>(PrimaryDistance, typeof(float), x => x.Orbit.DistanceToPrimary));
         }
 
         [TestCase]
         public void CanConvertDbDataReaderToEnumerableAndBack()
         {
             new CelestialBodyDataReader().ToEnumerable(ReadCelestialBody)
-                                         .ToDbDataReader(Columns)
+                                         .ToDbDataReader(Fields)
                                          .ShouldHaveSameDataAs(new CelestialBodyDataReader());
         }
 
@@ -72,7 +72,7 @@ namespace Bogosoft.Data.Tests
         {
             var expected = CelestialBody.All;
 
-            var actual = expected.ToDbDataReader(Columns).ToEnumerable(ReadCelestialBody);
+            var actual = expected.ToDbDataReader(Fields).ToEnumerable(ReadCelestialBody);
 
             using (var a = actual.GetEnumerator())
             using (var e = expected.GetEnumerator())

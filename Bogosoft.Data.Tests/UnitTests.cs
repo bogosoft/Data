@@ -8,13 +8,13 @@ namespace Bogosoft.Data.Tests
     public class UnitTests
     {
         [TestCase]
-        public void ColumnCreatedWithTwoGenericParametersDoesNotThrowNullReferenceExceptionOnExtract()
+        public void FieldAdapterCreatedWithTwoGenericParametersDoesNotThrowNullReferenceExceptionOnExtract()
         {
-            var column = new Column<DateTime, DayOfWeek>("day_of_week", x => x.DayOfWeek);
+            var field = new FieldAdapter<DateTime, DayOfWeek>("day_of_week", x => x.DayOfWeek);
 
             DayOfWeek result = default(DayOfWeek);
 
-            Action actual = () => result = (DayOfWeek)column.ExtractValueFrom(DateTime.Today);
+            Action actual = () => result = (DayOfWeek)field.ExtractValueFrom(DateTime.Today);
 
             actual.ShouldNotThrow();
 
