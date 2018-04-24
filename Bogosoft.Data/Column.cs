@@ -82,7 +82,7 @@ namespace Bogosoft.Data
         /// A strategy for extracting a column value from objects of the specified type.
         /// </param>
         public Column(string name, Func<TInitial, TComputed> extractor)
-            : base(name, typeof(TComputed), extractor as Func<TInitial, object>)
+            : base(name, typeof(TComputed), x => extractor.Invoke(x))
         {
         }
     }
