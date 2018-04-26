@@ -17,21 +17,6 @@ namespace Bogosoft.Data.Tests
 
         static List<FieldAdapter<CelestialBody>> Fields = new List<FieldAdapter<CelestialBody>>();
 
-        static bool AreEqual(CelestialBody a, CelestialBody b)
-        {
-            if (a is null && b is null)
-            {
-                return true;
-            }
-            else
-            {
-                return a.Mass == b.Mass
-                    && a.Name == b.Name
-                    && a.Orbit?.DistanceToPrimary == b.Orbit?.DistanceToPrimary
-                    && a.Type == b.Type;
-            }
-        }
-
         static CelestialBody ReadCelestialBody(DbDataReader reader)
         {
             return new CelestialBody
@@ -77,7 +62,22 @@ namespace Bogosoft.Data.Tests
                 {
                     e.MoveNext().ShouldBeTrue();
 
-                    AreEqual(a.Current, e.Current).ShouldBeTrue();
+                    a.Current.ShouldNotBeNull();
+                    e.Current.ShouldNotBeNull();
+
+                    a.Current.Mass.ShouldBe(e.Current.Mass);
+                    a.Current.Name.ShouldBe(e.Current.Name);
+
+                    if (a.Current.Orbit is null)
+                    {
+                        e.Current.Orbit.ShouldBeNull();
+                    }
+                    else
+                    {
+                        a.Current.Orbit.DistanceToPrimary.ShouldBe(e.Current.Orbit.DistanceToPrimary);
+                    }
+
+                    a.Current.Type.ShouldBe(e.Current.Type);
                 }
 
                 e.MoveNext().ShouldBeFalse();
