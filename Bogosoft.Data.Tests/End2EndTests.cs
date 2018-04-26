@@ -43,9 +43,25 @@ namespace Bogosoft.Data.Tests
         [TestCase]
         public void CanConvertDbDataReaderToEnumerableAndBack()
         {
-            new CelestialBodyDataReader().ToEnumerable(ReadCelestialBody)
-                                         .ToDbDataReader(Fields)
-                                         .ShouldHaveSameDataAs(new CelestialBodyDataReader());
+            DbDataReader actual, expected = new CelestialBodyDataReader();
+
+            actual = new CelestialBodyDataReader().ToEnumerable(ReadCelestialBody).ToDbDataReader(Fields);
+
+            actual.FieldCount.ShouldBe(expected.FieldCount);
+
+            while (actual.Read())
+            {
+                expected.Read().ShouldBeTrue();
+
+                for (var i = 0; i < expected.FieldCount; i++)
+                {
+                    actual[i].ShouldBe(expected[i]);
+
+                    actual.GetValue(i).ShouldBe(expected.GetValue(i));
+                }
+            }
+
+            expected.Read().ShouldBeFalse();
         }
 
         [TestCase]
