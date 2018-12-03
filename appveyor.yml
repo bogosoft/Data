@@ -39,6 +39,7 @@ deploy:
   on:
     branch: develop
 - provider: NuGet
+  symbol_server: http://nuget.smbsrc.net/api/v2/package
   name: ga
   api_key:
     secure: dTgnPw175H8ozk4c5gu0L/DJKaQZzUZIqKdj/u5ksRbe/naLY/7Dmx1d107F08JH
