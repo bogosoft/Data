@@ -1,23 +1,20 @@
-﻿using System.Data.Common;
+﻿using System.Data;
+using System.Data.Common;
 
 namespace Bogosoft.Data
 {
     /// <summary>
-    /// Represents any type capable of generating executable data source commands against data source connections.
+    /// Represents any type capable of creating commands that derive from <see cref="DbCommand"/>.
     /// </summary>
-    /// <typeparam name="TConnection">The type of the data source connection.</typeparam>
-    /// <typeparam name="TCommand">The type of the executable command.</typeparam>
-    public interface ICommandProvider<TConnection, TCommand>
-        where TConnection : DbConnection
-        where TCommand : DbCommand
+    /// <typeparam name="T">The type of generated commands.</typeparam>
+    public interface ICommandProvider<T> where T : DbCommand
     {
         /// <summary>
-        /// Get an command executable against a given data source connection.
+        /// Create an executable database command.
         /// </summary>
-        /// <param name="connection">
-        /// A data source connection against which an executable command is to be generated.
-        /// </param>
-        /// <returns>A command executable against the given data source connection.</returns>
-        TCommand GetCommand(TConnection connection);
+        /// <param name="commandText">The text of the newly generated command.</param>
+        /// <param name="commandType">The type of the newly generated command.</param>
+        /// <returns>A newly generated, executable database command.</returns>
+        T Create(string commandText, CommandType commandType);
     }
 }

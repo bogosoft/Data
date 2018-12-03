@@ -7,7 +7,7 @@ using System.Data.Common;
 
 namespace Bogosoft.Data.Tests
 {
-    [TestFixture, Category("End2End")]
+    [TestFixture, Category("Unit")]
     public class End2EndTests
     {
         const string Mass = "Mass";
