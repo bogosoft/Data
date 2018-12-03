@@ -1,4 +1,4 @@
-version: 3.0.0.{build}
+version: 4.0.0.{build}
 image: Visual Studio 2017
 pull_requests:
   do_not_increment_build_number: true
@@ -41,6 +41,6 @@ deploy:
 - provider: NuGet
   name: ga
   api_key:
-    secure: kahJkX8Cwh0dlGgcncf3lzSyXEO8kxwl1/rG/YizWVSkhlHNn1rXhsKGyZEcph3Q
+    secure: dTgnPw175H8ozk4c5gu0L/DJKaQZzUZIqKdj/u5ksRbe/naLY/7Dmx1d107F08JH
   on:
     branch: master
