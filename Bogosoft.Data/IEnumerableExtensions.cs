@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.Linq;
 
@@ -21,7 +22,7 @@ namespace Bogosoft.Data
         /// <returns>A new data reader.</returns>
         public static DbDataReader ToDbDataReader<T>(this IEnumerable<T> items, IEnumerable<FieldAdapter<T>> fields)
         {
-            return new CollectionToDataReaderAdapter<T>(items.GetEnumerator(), fields.ToArray());
+            return ToDbDataReader(items.GetEnumerator(), fields.ToArray());
         }
 
         /// <summary>
@@ -36,7 +37,28 @@ namespace Bogosoft.Data
         /// <returns>A new data reader.</returns>
         public static DbDataReader ToDbDataReader<T>(this IEnumerable<T> items, params FieldAdapter<T>[] fields)
         {
-            return new CollectionToDataReaderAdapter<T>(items.GetEnumerator(), fields);
+            return ToDbDataReader(items.GetEnumerator(), fields);
+        }
+
+        static DbDataReader ToDbDataReader<T>(this IEnumerator<T> source, FieldAdapter<T>[] fields)
+        {
+            var reader = new CollectionToDataReaderAdapter<T>
+            {
+                Buffer = new object[fields.Length],
+                FieldIndicesByName = new Dictionary<string, int>(),
+                Fields = fields,
+                SchemaTable = new DataTable(),
+                Source = source
+            };
+
+            for (var i = 0; i < fields.Length; i++)
+            {
+                reader.FieldIndicesByName[fields[i].Name] = i;
+
+                reader.SchemaTable.Columns.Add(fields[i].Name, fields[i].Type);
+            }
+
+            return reader;
         }
     }
 }
