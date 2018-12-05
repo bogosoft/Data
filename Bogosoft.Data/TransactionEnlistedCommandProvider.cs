@@ -118,11 +118,11 @@ namespace Bogosoft.Data
         {
             if (commitOnDispose)
             {
-                transaction.Commit();
+                transaction?.Commit();
             }
             else
             {
-                transaction.Rollback();
+                transaction?.Rollback();
             }
 
             disposer.Invoke(transaction);
