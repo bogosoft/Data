@@ -16,11 +16,6 @@ namespace Bogosoft.Data
         where TConnection : DbConnection
         where TTransaction : DbTransaction
     {
-        static TTransaction Begin(TConnection connection)
-        {
-            return connection.BeginTransaction() as TTransaction;
-        }
-
         static void DisposeOfTransaction(TTransaction transaction)
         {
             transaction?.Dispose();
@@ -38,6 +33,26 @@ namespace Bogosoft.Data
         Func<TConnection, TTransaction> transactions;
 
         /// <summary>
+        /// Raised after a transaction has been committed.
+        /// </summary>
+        public event EventHandler TransactionCommitted;
+
+        /// <summary>
+        /// Raised after a transaction has been discarded, i.e. rolled back.
+        /// </summary>
+        public event EventHandler TransactionDiscarded;
+
+        /// <summary>
+        /// Raised after an attempt to commit or discard a transaction resulted in an exception.
+        /// </summary>
+        public event EventHandler<Exception> TransactionFaulted;
+
+        /// <summary>
+        /// Raised after the current provider, when so configured, starts a transaction.
+        /// </summary>
+        public event EventHandler TransactionStarted;
+
+        /// <summary>
         /// Create a new transaction-enlisted command provider. A transaction will be automatically generated,
         /// committed and disposed of by this instance.
         /// </summary>
@@ -50,7 +65,7 @@ namespace Bogosoft.Data
         /// should be committed when this instance is disposed of.
         /// </param>
         public TransactionEnlistedCommandProvider(TConnection connection, bool commitOnDispose = true)
-            : this(connection, Begin, commitOnDispose, DisposeOfTransaction)
+            : this(connection, null, commitOnDispose, DisposeOfTransaction)
         {
         }
 
@@ -84,7 +99,16 @@ namespace Bogosoft.Data
             this.connection = connection;
             this.disposer = disposer;
             this.commitOnDispose = commitOnDispose;
-            this.transactions = transactions;
+            this.transactions = transactions ?? Begin;
+        }
+
+        TTransaction Begin(TConnection connection)
+        {
+            var transaction = connection.BeginTransaction();
+
+            TransactionStarted?.Invoke(this, EventArgs.Empty);
+
+            return transaction as TTransaction;
         }
 
         /// <summary>
@@ -116,13 +140,29 @@ namespace Bogosoft.Data
         /// </summary>
         public void Dispose()
         {
-            if (commitOnDispose)
+            if (transaction is null)
             {
-                transaction?.Commit();
+                return;
             }
-            else
+
+            try
             {
-                transaction?.Rollback();
+                if (commitOnDispose)
+                {
+                    transaction.Commit();
+
+                    TransactionCommitted?.Invoke(this, EventArgs.Empty);
+                }
+                else
+                {
+                    transaction.Rollback();
+
+                    TransactionDiscarded?.Invoke(this, EventArgs.Empty);
+                }
+            }
+            catch (Exception e)
+            {
+                TransactionFaulted?.Invoke(this, e);
             }
 
             disposer.Invoke(transaction);
