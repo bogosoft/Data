@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bogosoft.Data
 {
-    class CollectionToDataReaderAdapter<T> : SimplifiedDataReaderBase
+    class CollectionToDataReaderAdapter<T> : SimplifiedDataReader
     {
         internal object[] Buffer;
         internal Dictionary<string, int> FieldIndicesByName = new Dictionary<string, int>();
