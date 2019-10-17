@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 namespace Bogosoft.Data
 {
     /// <summary>
-    /// A set of static members for working with types that implement <see cref="ICommandProvider{T}"/>.
+    /// A set of static members for working with types that implement <see cref="ICommandFactory{T}"/>.
     /// </summary>
-    public static class CommandProvider
+    public static class CommandFactory
     {
         /// <summary>
         /// Create an executable database command. The command type of the newly generated command
@@ -18,7 +18,7 @@ namespace Bogosoft.Data
         /// <param name="provider">The current command provider.</param>
         /// <param name="commandText">The text of the newly generated command.</param>
         /// <returns>A newly generated, executable database command.</returns>
-        public static T Create<T>(this ICommandProvider<T> provider, string commandText) where T : DbCommand
+        public static T Create<T>(this ICommandFactory<T> provider, string commandText) where T : DbCommand
         {
             return provider.Create(commandText, CommandType.Text);
         }
@@ -30,7 +30,7 @@ namespace Bogosoft.Data
         /// <param name="self">The current command provider.</param>
         /// <param name="commandText">The text of a command to execute.</param>
         /// <returns>The number of records affected by the executed command.</returns>
-        public static int ExecuteNonQuery<T>(this ICommandProvider<T> self, string commandText) where T : DbCommand
+        public static int ExecuteNonQuery<T>(this ICommandFactory<T> self, string commandText) where T : DbCommand
         {
             using var command = self.Create(commandText);
 
@@ -46,7 +46,7 @@ namespace Bogosoft.Data
         /// <param name="token">A cancellation instruction.</param>
         /// <returns>The number of records affected by the executed command.</returns>
         public static async Task<int> ExecuteNonQueryAsync<T>(
-            this ICommandProvider<T> self,
+            this ICommandFactory<T> self,
             string commandText,
             CancellationToken token = default
             )
@@ -67,7 +67,7 @@ namespace Bogosoft.Data
         /// <returns>
         /// The value in the first column of the first row of the result set.
         /// </returns>
-        public static object ExecuteScalar<T>(this ICommandProvider<T> self, string commandText) where T : DbCommand
+        public static object ExecuteScalar<T>(this ICommandFactory<T> self, string commandText) where T : DbCommand
         {
             using var command = self.Create(commandText);
 
@@ -85,7 +85,7 @@ namespace Bogosoft.Data
         /// <returns>
         /// The value in the first column of the first row of the result set as an object of the specified type.
         /// </returns>
-        public static TResult ExecuteScalar<TCommand, TResult>(this ICommandProvider<TCommand> self, string commandText)
+        public static TResult ExecuteScalar<TCommand, TResult>(this ICommandFactory<TCommand> self, string commandText)
             where TCommand : DbCommand
         {
             using var command = self.Create(commandText);
@@ -105,7 +105,7 @@ namespace Bogosoft.Data
         /// The value in the first column of the first row of the result set.
         /// </returns>
         public static async Task<object> ExecuteScalarAsync<T>(
-            this ICommandProvider<T> self,
+            this ICommandFactory<T> self,
             string commandText,
             CancellationToken token = default
             )
@@ -129,7 +129,7 @@ namespace Bogosoft.Data
         /// The value in the first column of the first row of the result set as an object of the specified type.
         /// </returns>
         public static async Task<TResult> ExecuteScalarAsync<TCommand, TResult>(
-            this ICommandProvider<TCommand> self,
+            this ICommandFactory<TCommand> self,
             string commandText,
             CancellationToken token = default
             )

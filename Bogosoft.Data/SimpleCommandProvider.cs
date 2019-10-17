@@ -4,13 +4,13 @@ using System.Data.Common;
 namespace Bogosoft.Data
 {
     /// <summary>
-    /// A straight-forward implementation of the <see cref="ICommandProvider{T}"/> contract.
+    /// A straight-forward implementation of the <see cref="ICommandFactory{T}"/> contract.
     /// </summary>
     /// <typeparam name="TConnection">
     /// The type of the connection against which database commands are to be generated.
     /// </typeparam>
     /// <typeparam name="TCommand">The type of generated database commands.</typeparam>
-    public sealed class SimpleCommandProvider<TConnection, TCommand> : ICommandProvider<TCommand>
+    public sealed class SimpleCommandProvider<TConnection, TCommand> : ICommandFactory<TCommand>
         where TCommand : DbCommand
         where TConnection : DbConnection
     {

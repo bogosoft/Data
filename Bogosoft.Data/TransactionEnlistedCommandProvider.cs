@@ -11,7 +11,7 @@ namespace Bogosoft.Data
     /// <typeparam name="TCommand">The type of any commands that are generated.</typeparam>
     /// <typeparam name="TTransaction">The type of a transaction into which commands will be enlisted.</typeparam>
     public class TransactionEnlistedCommandProvider<TConnection, TCommand, TTransaction>
-        : ICommandProvider<TCommand>, IDisposable
+        : ICommandFactory<TCommand>, IDisposable
         where TCommand : DbCommand
         where TConnection : DbConnection
         where TTransaction : DbTransaction
