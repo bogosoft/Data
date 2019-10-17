@@ -20,9 +20,9 @@ namespace Bogosoft.Data
         /// will populate the corresponding ordinal position in a record with its value extractor.
         /// </param>
         /// <returns>A new data reader.</returns>
-        public static DbDataReader ToDbDataReader<T>(this IEnumerable<T> items, IEnumerable<FieldAdapter<T>> fields)
+        public static DbDataReader ToDataReader<T>(this IEnumerable<T> items, IEnumerable<FieldAdapter<T>> fields)
         {
-            return ToDbDataReader(items.GetEnumerator(), fields.ToArray());
+            return ToDataReader(items.GetEnumerator(), fields.ToArray());
         }
 
         /// <summary>
@@ -35,12 +35,12 @@ namespace Bogosoft.Data
         /// will populate the corresponding ordinal position in a record with its value extractor.
         /// </param>
         /// <returns>A new data reader.</returns>
-        public static DbDataReader ToDbDataReader<T>(this IEnumerable<T> items, params FieldAdapter<T>[] fields)
+        public static DbDataReader ToDataReader<T>(this IEnumerable<T> items, params FieldAdapter<T>[] fields)
         {
-            return ToDbDataReader(items.GetEnumerator(), fields);
+            return ToDataReader(items.GetEnumerator(), fields);
         }
 
-        static DbDataReader ToDbDataReader<T>(this IEnumerator<T> source, FieldAdapter<T>[] fields)
+        static DbDataReader ToDataReader<T>(this IEnumerator<T> source, FieldAdapter<T>[] fields)
         {
             var reader = new CollectionToDataReaderAdapter<T>
             {
