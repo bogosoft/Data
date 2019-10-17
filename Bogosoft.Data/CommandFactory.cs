@@ -20,7 +20,13 @@ namespace Bogosoft.Data
         /// <returns>A newly generated, executable database command.</returns>
         public static T Create<T>(this ICommandFactory<T> provider, string commandText) where T : DbCommand
         {
-            return provider.Create(commandText, CommandType.Text);
+            void Configure(T command)
+            {
+                command.CommandText = commandText;
+                command.CommandType = CommandType.Text;
+            }
+
+            return provider.Create(Configure);
         }
 
         /// <summary>

@@ -1,4 +1,4 @@
-﻿using System.Data;
+﻿using System;
 using System.Data.Common;
 
 namespace Bogosoft.Data
@@ -28,15 +28,13 @@ namespace Bogosoft.Data
         /// <summary>
         /// Create an executable database command.
         /// </summary>
-        /// <param name="commandText">The text of the newly generated command.</param>
-        /// <param name="commandType">The type of the newly generated command.</param>
+        /// <param name="configure">A configuration strategy to be applied to a newly created command.</param>
         /// <returns>A newly generated, executable database command.</returns>
-        public TCommand Create(string commandText, CommandType commandType)
+        public TCommand Create(Action<TCommand> configure)
         {
-            var command = connection.CreateCommand();
+            var command = connection.CreateCommand() as TCommand;
 
-            command.CommandText = commandText;
-            command.CommandType = commandType;
+            configure.Invoke(command);
 
             return command as TCommand;
         }
