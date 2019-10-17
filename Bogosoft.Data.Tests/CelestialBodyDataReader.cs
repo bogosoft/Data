@@ -5,10 +5,10 @@ using System.Data;
 
 namespace Bogosoft.Data.Tests
 {
-    class CelestialBodyDataReader : SimplifiedDataReaderBase
+    class CelestialBodyDataReader : SimplifiedDataReader
     {
         IEnumerator<CelestialBody> enumerator = CelestialBody.All.GetEnumerator();
-        DataTable schemaTable;
+        readonly DataTable schemaTable;
 
         public override object this[int ordinal] => GetValue(ordinal);
 
@@ -37,6 +37,15 @@ namespace Bogosoft.Data.Tests
             enumerator = null;
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            enumerator?.Dispose();
+
+            schemaTable?.Dispose();
+
+            base.Dispose(disposing);
+        }
+
         public override Type GetFieldType(int ordinal)
         {
             switch (ordinal)
@@ -54,36 +63,26 @@ namespace Bogosoft.Data.Tests
 
         public override string GetName(int ordinal)
         {
-            switch (ordinal)
+            return ordinal switch
             {
-                case 0:
-                    return "Name";
-                case 1:
-                    return "Type";
-                case 2:
-                    return "Mass";
-                case 3:
-                    return "Distance to Primary";
-                default:
-                    throw new IndexOutOfRangeException();
-            }
+                0 => "Name",
+                1 => "Type",
+                2 => "Mass",
+                3 => "Distance to Primary",
+                _ => throw new IndexOutOfRangeException(),
+            };
         }
 
         public override int GetOrdinal(string name)
         {
-            switch (name.ToLower())
+            return (name.ToLower()) switch
             {
-                case "distance to primary":
-                    return 3;
-                case "mass":
-                    return 2;
-                case "name":
-                    return 0;
-                case "type":
-                    return 1;
-                default:
-                    throw new IndexOutOfRangeException();
-            }
+                "distance to primary" => 3,
+                "mass" => 2,
+                "name" => 0,
+                "type" => 1,
+                _ => throw new IndexOutOfRangeException(),
+            };
         }
 
         public override DataTable GetSchemaTable() => schemaTable;
@@ -95,19 +94,14 @@ namespace Bogosoft.Data.Tests
 
         public override object GetValue(int ordinal)
         {
-            switch (ordinal)
+            return ordinal switch
             {
-                case 0:
-                    return enumerator.Current.Name;
-                case 1:
-                    return enumerator.Current.Type.ToString();
-                case 2:
-                    return enumerator.Current.Mass;
-                case 3:
-                    return enumerator.Current.Orbit.DistanceToPrimary;
-                default:
-                    throw new IndexOutOfRangeException();
-            }
+                0 => enumerator.Current.Name,
+                1 => enumerator.Current.Type.ToString(),
+                2 => enumerator.Current.Mass,
+                3 => enumerator.Current.Orbit.DistanceToPrimary,
+                _ => throw new IndexOutOfRangeException(),
+            };
         }
 
         public override int GetValues(object[] values)

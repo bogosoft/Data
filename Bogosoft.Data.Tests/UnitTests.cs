@@ -12,7 +12,7 @@ namespace Bogosoft.Data.Tests
         {
             var field = new FieldAdapter<DateTime, DayOfWeek>("day_of_week", x => x.DayOfWeek);
 
-            DayOfWeek result = default(DayOfWeek);
+            DayOfWeek result = default;
 
             Action actual = () => result = (DayOfWeek)field.ExtractValueFrom(DateTime.Today);
 

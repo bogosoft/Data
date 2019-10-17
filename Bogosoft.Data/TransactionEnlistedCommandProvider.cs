@@ -26,11 +26,11 @@ namespace Bogosoft.Data
         }
 
         readonly bool commitOnDispose;
-        TConnection connection;
+        readonly TConnection connection;
         readonly Action<TTransaction> disposer;
         bool initialized = false;
         TTransaction transaction;
-        Func<TConnection, TTransaction> transactions;
+        readonly Func<TConnection, TTransaction> transactions;
 
         /// <summary>
         /// Raised after a transaction has been committed.

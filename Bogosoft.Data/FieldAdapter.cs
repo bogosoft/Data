@@ -9,7 +9,7 @@ namespace Bogosoft.Data
     /// <typeparam name="T">The type of the object from which a field value will be extracted.</typeparam>
     public class FieldAdapter<T>
     {
-        Func<T, object> extractor;
+        readonly Func<T, object> extractor;
 
         /// <summary>
         /// Get the name of the current field.

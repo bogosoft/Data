@@ -32,10 +32,9 @@ namespace Bogosoft.Data
         /// <returns>The number of records affected by the executed command.</returns>
         public static int ExecuteNonQuery<T>(this ICommandProvider<T> self, string commandText) where T : DbCommand
         {
-            using (var command = self.Create(commandText))
-            {
-                return command.ExecuteNonQuery();
-            }
+            using var command = self.Create(commandText);
+
+            return command.ExecuteNonQuery();
         }
 
         /// <summary>
@@ -49,14 +48,13 @@ namespace Bogosoft.Data
         public static async Task<int> ExecuteNonQueryAsync<T>(
             this ICommandProvider<T> self,
             string commandText,
-            CancellationToken token = default(CancellationToken)
+            CancellationToken token = default
             )
             where T : DbCommand
         {
-            using (var command = self.Create(commandText))
-            {
-                return await command.ExecuteNonQueryAsync(token);
-            }
+            using var command = self.Create(commandText);
+
+            return await command.ExecuteNonQueryAsync(token);
         }
 
         /// <summary>
@@ -71,10 +69,9 @@ namespace Bogosoft.Data
         /// </returns>
         public static object ExecuteScalar<T>(this ICommandProvider<T> self, string commandText) where T : DbCommand
         {
-            using (var command = self.Create(commandText))
-            {
-                return command.ExecuteScalar();
-            }
+            using var command = self.Create(commandText);
+
+            return command.ExecuteScalar();
         }
 
         /// <summary>
@@ -91,10 +88,9 @@ namespace Bogosoft.Data
         public static TResult ExecuteScalar<TCommand, TResult>(this ICommandProvider<TCommand> self, string commandText)
             where TCommand : DbCommand
         {
-            using (var command = self.Create(commandText))
-            {
-                return (TResult)command.ExecuteScalar();
-            }
+            using var command = self.Create(commandText);
+
+            return (TResult)command.ExecuteScalar();
         }
 
         /// <summary>
@@ -111,14 +107,13 @@ namespace Bogosoft.Data
         public static async Task<object> ExecuteScalarAsync<T>(
             this ICommandProvider<T> self,
             string commandText,
-            CancellationToken token = default(CancellationToken)
+            CancellationToken token = default
             )
             where T : DbCommand
         {
-            using (var command = self.Create(commandText))
-            {
-                return await command.ExecuteScalarAsync(token);
-            }
+            using var command = self.Create(commandText);
+
+            return await command.ExecuteScalarAsync(token);
         }
 
         /// <summary>
@@ -136,14 +131,13 @@ namespace Bogosoft.Data
         public static async Task<TResult> ExecuteScalarAsync<TCommand, TResult>(
             this ICommandProvider<TCommand> self,
             string commandText,
-            CancellationToken token = default(CancellationToken)
+            CancellationToken token = default
             )
             where TCommand : DbCommand
         {
-            using (var command = self.Create(commandText))
-            {
-                return (TResult)(await command.ExecuteScalarAsync(token));
-            }
+            using var command = self.Create(commandText);
+
+            return (TResult)(await command.ExecuteScalarAsync(token));
         }
     }
 }

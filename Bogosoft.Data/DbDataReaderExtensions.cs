@@ -62,7 +62,7 @@ namespace Bogosoft.Data
         /// method has not yet been called for this first time or has returned false); a previously read column
         /// was accessed for a second time in sequential mode; there was an asynchronous operation in progress.
         /// </exception>
-        public static T GetFieldValue<T>(this DbDataReader reader, string name, T ifDBNull = default(T))
+        public static T GetFieldValue<T>(this DbDataReader reader, string name, T ifDBNull = default)
         {
             return reader.GetFieldValue(reader.GetOrdinal(name), ifDBNull);
         }
@@ -95,7 +95,7 @@ namespace Bogosoft.Data
             this DbDataReader reader,
             int ordinal,
             T ifDBNull,
-            CancellationToken token = default(CancellationToken)
+            CancellationToken token = default
             )
         {
             if (await reader.IsDBNullAsync(ordinal, token))
@@ -132,7 +132,7 @@ namespace Bogosoft.Data
         public static Task<T> GetFieldValueAsync<T>(
             this DbDataReader reader,
             string name,
-            CancellationToken token = default(CancellationToken)
+            CancellationToken token = default
             )
         {
             return reader.GetFieldValueAsync<T>(reader.GetOrdinal(name), token);
@@ -164,7 +164,7 @@ namespace Bogosoft.Data
         public static Task<T> GetFieldValueAsync<T>(
             this DbDataReader reader,
             string name,
-            T ifDBNull = default(T)
+            T ifDBNull = default
             )
         {
             return reader.GetFieldValueAsync(reader.GetOrdinal(name), ifDBNull);
@@ -198,7 +198,7 @@ namespace Bogosoft.Data
             this DbDataReader reader,
             string name,
             T ifDBNull,
-            CancellationToken token = default(CancellationToken)
+            CancellationToken token = default
             )
         {
             return reader.GetFieldValueAsync(reader.GetOrdinal(name), ifDBNull, token);
@@ -223,7 +223,7 @@ namespace Bogosoft.Data
         public static Task<bool> IsDBNullAsync(
             this DbDataReader reader,
             string name,
-            CancellationToken token = default(CancellationToken)
+            CancellationToken token = default
             )
         {
             return reader.IsDBNullAsync(reader.GetOrdinal(name), token);
