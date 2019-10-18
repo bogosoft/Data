@@ -8,7 +8,7 @@ namespace Bogosoft.Data
     /// A partial implementation of the <see cref="DbDataReader"/> type that reduces the number
     /// of methods and properties deriving classes need to implement.
     /// </summary>
-    public abstract class SimplifiedDataReaderBase : DbDataReader
+    public abstract class SimplifiedDataReader : DbDataReader
     {
         /// <summary>
         /// Locate a field in the current row by a given name and return its value.

@@ -15,7 +15,7 @@ namespace Bogosoft.Data.Tests
         const string PrimaryDistance = "Distance to Primary";
         const string Type = "Type";
 
-        static List<FieldAdapter<CelestialBody>> Fields = new List<FieldAdapter<CelestialBody>>();
+        static readonly List<FieldAdapter<CelestialBody>> Fields = new List<FieldAdapter<CelestialBody>>();
 
         static CelestialBody ReadCelestialBody(DbDataReader reader)
         {
@@ -45,7 +45,7 @@ namespace Bogosoft.Data.Tests
         {
             DbDataReader actual, expected = new CelestialBodyDataReader();
 
-            actual = new CelestialBodyDataReader().ToEnumerable(ReadCelestialBody).ToDbDataReader(Fields);
+            actual = new CelestialBodyDataReader().ToEnumerable(ReadCelestialBody).ToDataReader(Fields);
 
             actual.FieldCount.ShouldBe(expected.FieldCount);
 
@@ -62,6 +62,9 @@ namespace Bogosoft.Data.Tests
             }
 
             expected.Read().ShouldBeFalse();
+
+            actual?.Dispose();
+            expected?.Dispose();
         }
 
         [TestCase]
@@ -69,35 +72,34 @@ namespace Bogosoft.Data.Tests
         {
             var expected = CelestialBody.All;
 
-            var actual = expected.ToDbDataReader(Fields).ToEnumerable(ReadCelestialBody);
+            var actual = expected.ToDataReader(Fields).ToEnumerable(ReadCelestialBody);
 
-            using (var a = actual.GetEnumerator())
-            using (var e = expected.GetEnumerator())
+            using var a = actual.GetEnumerator();
+            using var e = expected.GetEnumerator();
+
+            while (a.MoveNext())
             {
-                while (a.MoveNext())
+                e.MoveNext().ShouldBeTrue();
+
+                a.Current.ShouldNotBeNull();
+                e.Current.ShouldNotBeNull();
+
+                a.Current.Mass.ShouldBe(e.Current.Mass);
+                a.Current.Name.ShouldBe(e.Current.Name);
+
+                if (a.Current.Orbit is null)
                 {
-                    e.MoveNext().ShouldBeTrue();
-
-                    a.Current.ShouldNotBeNull();
-                    e.Current.ShouldNotBeNull();
-
-                    a.Current.Mass.ShouldBe(e.Current.Mass);
-                    a.Current.Name.ShouldBe(e.Current.Name);
-
-                    if (a.Current.Orbit is null)
-                    {
-                        e.Current.Orbit.ShouldBeNull();
-                    }
-                    else
-                    {
-                        a.Current.Orbit.DistanceToPrimary.ShouldBe(e.Current.Orbit.DistanceToPrimary);
-                    }
-
-                    a.Current.Type.ShouldBe(e.Current.Type);
+                    e.Current.Orbit.ShouldBeNull();
+                }
+                else
+                {
+                    a.Current.Orbit.DistanceToPrimary.ShouldBe(e.Current.Orbit.DistanceToPrimary);
                 }
 
-                e.MoveNext().ShouldBeFalse();
+                a.Current.Type.ShouldBe(e.Current.Type);
             }
+
+            e.MoveNext().ShouldBeFalse();
         }
     }
 }

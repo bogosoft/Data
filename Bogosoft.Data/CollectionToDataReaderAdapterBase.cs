@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 
 namespace Bogosoft.Data
 {
-    class CollectionToDataReaderAdapter<T> : SimplifiedDataReaderBase
+    abstract class CollectionToDataReaderAdapterBase<T> : SimplifiedDataReader
     {
-        internal object[] Buffer;
-        internal Dictionary<string, int> FieldIndicesByName = new Dictionary<string, int>();
-        internal FieldAdapter<T>[] Fields;
-        internal DataTable SchemaTable;
-        internal IEnumerator<T> Source;
+        bool closed = false;
+
+        readonly Dictionary<string, int> fieldIndicesByName = new Dictionary<string, int>();
+        readonly DataTable schemaTable;
+
+        protected object[] Buffer { get; private set; }
+        protected FieldAdapter<T>[] Fields { get; private set; }
 
         public override object this[int ordinal] => Buffer[ordinal];
 
@@ -22,33 +24,51 @@ namespace Bogosoft.Data
 
         public override bool HasRows => true;
 
-        public override bool IsClosed => Source is null;
+        public override bool IsClosed => closed;
 
         public override int RecordsAffected => 0;
+
+        protected CollectionToDataReaderAdapterBase(
+            object[] buffer,
+            Dictionary<string, int> fieldIndicesByName,
+            FieldAdapter<T>[] fields,
+            DataTable schemaTable
+            )
+        {
+            Buffer = buffer;
+            this.fieldIndicesByName = fieldIndicesByName;
+            Fields = fields;
+            this.schemaTable = schemaTable;
+        }
 
         public override void Close()
         {
             Dispose();
+
+            closed = true;
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            Source.Dispose();
+        protected abstract override void Dispose(bool disposing);
 
-            Source = null;
-        }
+        public abstract override ValueTask DisposeAsync();
 
         public override Type GetFieldType(int ordinal) => Fields[ordinal].Type;
 
         public override string GetName(int ordinal) => Fields[ordinal].Name;
 
-        public override int GetOrdinal(string name) => FieldIndicesByName[name];
+        public override int GetOrdinal(string name) => fieldIndicesByName[name];
 
-        public override DataTable GetSchemaTable() => SchemaTable;
+        public override DataTable GetSchemaTable() => schemaTable;
 
         public override object GetValue(int ordinal) => Buffer[ordinal];
 
-        public override long GetValue<TUnit>(int ordinal, long dataOffset, TUnit[] buffer, int bufferOffset, int length)
+        public override long GetValue<TUnit>(
+            int ordinal,
+            long dataOffset,
+            TUnit[] buffer,
+            int bufferOffset,
+            int length
+            )
         {
             var field = this.Buffer[ordinal] as TUnit[];
 
@@ -93,28 +113,8 @@ namespace Bogosoft.Data
 
         public override bool NextResult() => false;
 
-        public override bool Read()
-        {
-            if (Source.MoveNext())
-            {
-                for (var i = 0; i < Fields.Length; i++)
-                {
-                    Buffer[i] = Fields[i].ExtractValueFrom(Source.Current);
-                }
+        public abstract override bool Read();
 
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        public override Task<bool> ReadAsync(CancellationToken token)
-        {
-            token.ThrowIfCancellationRequested();
-
-            return Task.FromResult(Read());
-        }
+        public abstract override Task<bool> ReadAsync(CancellationToken token);
     }
 }

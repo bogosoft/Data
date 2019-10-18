@@ -21,8 +21,8 @@ namespace Bogosoft.Data
         /// <summary>
         /// Connect to a data source and return an object representing the connection.
         /// </summary>
-        /// <param name="token">A cancellation instruction.</param>
+        /// <param name="token">An opporunity to respond to a cancellation request.</param>
         /// <returns>An object representing a connection to a data source.</returns>
-        Task<T> ConnectAsync(CancellationToken token);
+        Task<T> ConnectAsync(CancellationToken token = default);
     }
 }
