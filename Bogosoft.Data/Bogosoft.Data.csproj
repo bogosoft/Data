@@ -21,4 +21,7 @@
 	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|netstandard2.1|AnyCPU'">
 		<DocumentationFile>bin\Release\netstandard2.1\Bogosoft.Data.xml</DocumentationFile>
 	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <NoWarn>1701;1702;IDE0060</NoWarn>
+	</PropertyGroup>
 </Project>
