@@ -10,7 +10,7 @@ namespace Bogosoft.Data
     /// <typeparam name="TConnection">The type of a database connection.</typeparam>
     /// <typeparam name="TCommand">The type of any commands that are generated.</typeparam>
     /// <typeparam name="TTransaction">The type of a transaction into which commands will be enlisted.</typeparam>
-    public class TransactionEnlistedCommandProvider<TConnection, TCommand, TTransaction>
+    public class TransactionEnlistedCommandFactory<TConnection, TCommand, TTransaction>
         : ICommandFactory<TCommand>, IDisposable
         where TCommand : DbCommand
         where TConnection : DbConnection
@@ -64,7 +64,7 @@ namespace Bogosoft.Data
         /// A value indicating whether or not a transaction started against the given connection
         /// should be committed when this instance is disposed of.
         /// </param>
-        public TransactionEnlistedCommandProvider(TConnection connection, bool commitOnDispose = true)
+        public TransactionEnlistedCommandFactory(TConnection connection, bool commitOnDispose = true)
             : this(connection, null, commitOnDispose, DisposeOfTransaction)
         {
         }
@@ -84,12 +84,12 @@ namespace Bogosoft.Data
         /// A value indicating whether or not a transaction started against the given connection
         /// should be committed when this instance is disposed of.
         /// </param>
-        public TransactionEnlistedCommandProvider(TConnection connection, TTransaction transaction, bool commitOnDispose = true)
+        public TransactionEnlistedCommandFactory(TConnection connection, TTransaction transaction, bool commitOnDispose = true)
             : this(connection, c => transaction, commitOnDispose, DoNothing)
         {
         }
 
-        TransactionEnlistedCommandProvider(
+        TransactionEnlistedCommandFactory(
             TConnection connection,
             Func<TConnection, TTransaction> transactions,
             bool commitOnDispose,

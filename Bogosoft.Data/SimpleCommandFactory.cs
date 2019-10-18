@@ -10,7 +10,7 @@ namespace Bogosoft.Data
     /// The type of the connection against which database commands are to be generated.
     /// </typeparam>
     /// <typeparam name="TCommand">The type of generated database commands.</typeparam>
-    public sealed class SimpleCommandProvider<TConnection, TCommand> : ICommandFactory<TCommand>
+    public sealed class SimpleCommandFactory<TConnection, TCommand> : ICommandFactory<TCommand>
         where TCommand : DbCommand
         where TConnection : DbConnection
     {
@@ -20,7 +20,7 @@ namespace Bogosoft.Data
         /// Create a new simple command provider.
         /// </summary>
         /// <param name="connection">A connection against which database commands will be generated.</param>
-        public SimpleCommandProvider(TConnection connection)
+        public SimpleCommandFactory(TConnection connection)
         {
             this.connection = connection;
         }
