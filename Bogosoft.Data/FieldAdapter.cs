@@ -29,7 +29,7 @@ namespace Bogosoft.Data
         public FieldAdapter(string name, object value)
         {
             Name = name;
-            Type = value.GetType();
+            Type = typeof(T);
 
             extractor = x => value;
         }
