@@ -82,6 +82,16 @@ namespace Bogosoft.Data.Tests
         }
 
         [TestCase]
+        public void FieldAdapterCreatedWithNullConstantValueDoesNotThrowNullReferenceException()
+        {
+            FieldAdapter<string> field;
+
+            Action test = () => field = new FieldAdapter<string>("field_name", null);
+
+            test.ShouldNotThrow();
+        }
+
+        [TestCase]
         public void FieldAdapterCreatedWithTwoGenericParametersDoesNotThrowNullReferenceExceptionOnExtract()
         {
             var field = new FieldAdapter<DateTime, DayOfWeek>("day_of_week", x => x.DayOfWeek);
